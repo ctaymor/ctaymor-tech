@@ -1,0 +1,12 @@
+@import 'color';
+@import 'font';
+@import 'grid';
+
+html {
+	background: $main-bg-color;
+}
+
+body {
+	font-family: 'Noto Serif', serif;
+  color: $grey1;
+}

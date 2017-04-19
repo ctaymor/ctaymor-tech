@@ -1,0 +1,148 @@
+.purple1 {
+  color: #2E0A6E; }
+
+.white {
+  color: #ffffff; }
+
+.grey1 {
+  color: #050505; }
+
+.grey2 {
+  color: #29272B; }
+
+.grey3 {
+  color: #A29EA8; }
+
+.grey4 {
+  color: #D6D3DB; }
+
+.grey1 {
+  color: #050505; }
+
+.h1 {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 4em;
+  display: block;
+  -webkit-margin-before: 0.67em;
+  -webkit-margin-after: 0.67em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  font-weight: bold; }
+
+.h2 {
+  display: block;
+  font-size: 1.5em;
+  -webkit-margin-before: 0.83em;
+  -webkit-margin-after: 0.83em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  font-weight: bold; }
+
+.h3 {
+  display: block;
+  font-size: 1.17em;
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  font-weight: bold; }
+
+.h4 {
+  display: block;
+  -webkit-margin-before: 1.33em;
+  -webkit-margin-after: 1.33em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  font-weight: bold; }
+
+.h5 {
+  display: block;
+  font-size: 0.83em;
+  -webkit-margin-before: 1.67em;
+  -webkit-margin-after: 1.67em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  font-weight: bold; }
+
+/** Adapted from Edward Robertson's CCv3 responsive grid system http://www.responsivegridsystem.com**./
+
+/*  SECTIONS  */
+.section {
+  clear: both;
+  padding: 0px;
+  margin: 0px; }
+
+/*  COLUMN SETUP  */
+.col {
+  display: block;
+  float: left;
+  margin: 1% 0 1% 1.6%; }
+
+.col:first-child {
+  margin-left: 0; }
+
+/*  GROUPING  */
+.group:before,
+.group:after {
+  content: "";
+  display: table; }
+
+.group:after {
+  clear: both; }
+
+.group {
+  zoom: 1;
+  /* For IE 6/7 */ }
+
+/*  GRID OF TWELVE  */
+.span_12 {
+  width: 100%; }
+
+.span_11 {
+  width: 91.53%; }
+
+.span_10 {
+  width: 83.06%; }
+
+.span_9 {
+  width: 74.6%; }
+
+.span_8 {
+  width: 66.13%; }
+
+.span_7 {
+  width: 57.66%; }
+
+.span_6 {
+  width: 49.2%; }
+
+.span_5 {
+  width: 40.73%; }
+
+.span_4 {
+  width: 32.26%; }
+
+.span_3 {
+  width: 23.8%; }
+
+.span_2 {
+  width: 15.33%; }
+
+.span_1 {
+  width: 6.866%; }
+
+/*  GO FULL WIDTH BELOW 480 PIXELS */
+@media only screen and (max-width: 480px) {
+  .col {
+    margin: 1% 0 1% 0%; }
+
+  .span_1, .span_2, .span_3, .span_4, .span_5, .span_6, .span_7, .span_8, .span_9, .span_10, .span_11, .span_12 {
+    width: 100%; } }
+html {
+  background: white; }
+
+body {
+  font-family: 'Noto Serif', serif;
+  color: #050505; }
+
+/*# sourceMappingURL=index.css.map */
