@@ -1,6 +1,7 @@
 @import 'color';
 @import 'font';
 @import 'grid';
+@import 'donuts';
 
 html {
 	background: $main-bg-color;
@@ -9,4 +10,7 @@ html {
 body {
 	font-family: 'Noto Serif', serif;
   color: $grey1;
+}
+.headshot {
+	width: '20em';
 }
