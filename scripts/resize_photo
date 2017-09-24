@@ -1,0 +1,61 @@
+#!/bin/bash
+set -eu
+print_usage () {
+  echo
+  echo "A small script to perfectly resize photos for the donuts page of tech.taymor.io."
+  echo "This script assumes you have the following installed on your machine already:"
+  echo "  -imagemagick"
+  echo "  -gcloud sdk"
+  echo "For best results, photo should be square."
+  echo
+  echo "Flags"
+  echo -i or --in: Path to a photo to be resized. Use this OR --latest
+  echo -o or --out: Path to place the resized photo, either locally or the filename on gcloud storage
+  echo -l or --latest: pick the latest donut photo from dropbox. Use this OR --in
+  echo "-u or --upload: Upload the resized file directly to the Donuts bucket (this will require authenticating with the gcloud cli)"
+  echo -h or help or --help: Display this help text
+  echo
+}
+
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+  -i|--in)
+  INPUT_PATH="$2"
+  shift
+  shift
+  ;;
+  -o|--out)
+  OUTPUT_PATH="$2"
+  shift
+  shift
+  ;;
+  -l|--latest)
+  last_filename=$(ls -t /mnt/c/Users/Caroline/Dropbox/Donuts | head -n1)
+  INPUT_PATH=/mnt/c/Users/Caroline/Dropbox/Donuts/${last_filename}
+  shift
+  ;;
+  -u|--upload)
+  UPLOAD=true
+  shift
+  ;;
+  -h|help|--help|*)
+  print_usage
+  exit 0
+esac
+done
+
+echo INPUT_PATH is "$INPUT_PATH"
+echo OUTPUT_PATH is "$OUTPUT_PATH"
+
+cp ${INPUT_PATH} ${OUTPUT_PATH}
+convert ${INPUT_PATH} -resize 400x400 ${OUTPUT_PATH}
+if [ "$UPLOAD" == "true" ]; then
+  echo upload!!!
+  gcloud auth login
+  gcloud config set project ctaymor-home
+  gsutil cp -n -v $OUTPUT_PATH gs://tech-taymor/images/donuts/${OUTPUT_PATH}
+  gsutil acl ch -u AllUsers:R gs://tech-taymor/images/donuts/${OUTPUT_PATH}
+fi
