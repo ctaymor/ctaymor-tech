@@ -2,3 +2,9 @@
 language: ruby
 rvm:
   - 2.4
+before_deploy:
+  - openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_iv -in ctaymor-home-c62e47a2a8fc.json.enc -out travis-ci-service-account-key.json -d
+deploy:
+  provider: gae
+  keyfile: travis-ci-service-account-key.json
+  project: ctaymor-home
