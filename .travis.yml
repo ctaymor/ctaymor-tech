@@ -9,3 +9,4 @@ deploy:
   provider: gae
   keyfile: travis-ci-service-account-key.json
   project: ctaymor-home
+  skip_cleanup: true
