@@ -1,5 +1,6 @@
 #!/bin/bash
-set -eu
+set -e
+
 print_usage () {
   echo
   echo "A small script to perfectly resize photos for the donuts page of tech.taymor.io."
@@ -50,11 +51,14 @@ done
 echo INPUT_PATH is "$INPUT_PATH"
 echo OUTPUT_PATH is "$OUTPUT_PATH"
 
+if [ -z "$INPUT_PATH" ]; then
+	print_usage
+fi
+
 cp ${INPUT_PATH} ${OUTPUT_PATH}
 convert ${INPUT_PATH} -resize 400x400 ${OUTPUT_PATH}
 if [ "$UPLOAD" == "true" ]; then
   echo upload!!!
-  gcloud auth login
   gcloud config set project ctaymor-home
   gsutil cp -n -v $OUTPUT_PATH gs://tech-taymor/images/donuts/${OUTPUT_PATH}
   gsutil acl ch -u AllUsers:R gs://tech-taymor/images/donuts/${OUTPUT_PATH}
