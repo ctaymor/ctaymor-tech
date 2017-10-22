@@ -1,0 +1,10 @@
+<li class="donut-item">
+
+    {{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006") | $.Scratch.Set "subtitle" }}
+    {{ with .Description }} {{ $.Scratch.Set "subtitle" . }} {{ end }}
+
+    <h4>{{ .Title }}</a></h4>
+    <h5>{{ .Date }}  {{ .Params.donut_type }}</h5>
+            <img src={{ .Params.image_src }} alt={{ .Params.alt_text }}><br>
+            {{ .Content }}
+</li>

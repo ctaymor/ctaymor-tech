@@ -1,10 +1,12 @@
 Dependencies:
 Runtime:
--
+* `minimal` hugo theme
+
 Dev:
 * `sass`
 * `gcloud sdk`
 * `imagemagick`
+* `hugo`
 
 To Build:
 
