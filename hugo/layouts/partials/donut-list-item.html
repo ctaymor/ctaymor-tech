@@ -4,7 +4,8 @@
     {{ with .Description }} {{ $.Scratch.Set "subtitle" . }} {{ end }}
 
     <h4>{{ .Title }}</a></h4>
-    <h5>{{ .Date }}  {{ .Params.donut_type }}</h5>
-            <img src={{ .Params.image_src }} alt={{ .Params.alt_text }}><br>
-            {{ .Content }}
+    <h5>{{ .Date.Format "2006-01-02" }} </h5>
+    <h5> {{ .Params.donut_type }}</h5>
+    <img src={{ .Params.image_src }} alt={{ .Params.alt_text }}><br>
+    {{ .Content }}
 </li>

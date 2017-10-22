@@ -15,6 +15,8 @@ googleAnalytics = ""
     highlight = true
     highlightStyle = "solarized-dark"
     highlightLanguages = ["go", "haskell", "kotlin", "scala", "swift", "ruby"]
+    css = ["/donuts.css"]
+    font="Noto+Serif"
 
 [[menu.main]]
     url = "/"
