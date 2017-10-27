@@ -12,7 +12,7 @@ Dev:
 
 To Build:
 
-To watch sass files for changes, `sass --watch css/index.scss`
+To build sass files, `sass www/css/index.scss www/css/index.css`
 
 To Deploy:
 ```bash
