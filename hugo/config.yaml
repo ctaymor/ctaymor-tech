@@ -1,0 +1,56 @@
+---
+baseURL: "http://tech.taymor.io"
+languageCode: "en-us"
+title: "Caroline Taymor"
+theme: "bisl"
+googleAnalytics: ""
+
+
+params:
+  author: "Caroline Taymor"
+  description: "Software Engineer. Tech Speaker."
+  githubUsername: "ctaymor"
+  accent: "purple"
+  showBorder: true
+  backgroundColor: "white"
+  highlight: true
+  highlightStyle: "solarized-dark"
+  highlightLanguages: ["go", "ruby"]
+  fonts: 
+  - "Noto+Serif"
+  - "Cinzel+Decorative"
+  headshotUrl: "https://storage.googleapis.com/tech-taymor/images/headshot-small-2016b.jpg"
+  bio: "I'm a software engineer and mathematician with a passion for making operations less painful. I'm currently a software engineer at Pivotal Cloud Foundry. As lead developer, I recently led the PCF OpsManager team in building a deployer for Cloud Foundry. I first fell in love with operations while wrangling complex build and deploy pipelines, and shipping a Ruby on Rails app as a vm image on 5 different IaaSes. I have a passion for making teams better. I'm an expert in learning new programming languages, having learned Ruby, Javascript, and Go on the job. I never expected to have OpinionsTM about IaaSes, but here we are. In my spare time, I study talmud and paint. I'm available to give talks on a number of subjects at meetups and conferences on Ruby, Rails, shipping Ruby on Rails applications as VM images, pair programming, integrating with multiple IaaSes, and automating release cycles."
+  twitter: "@CarolineTaymor"
+  linkedIn: carolinetaymor
+menu:
+  main:
+    - url: "/"
+      name: "Home"
+      weight: 1
+    - url: "/posts/"
+      name: "Posts"
+      weight: 2
+    - url: "/donuts/"
+      name: "Donuts"
+      weight: 3
+    - url: "/about/"
+      name: "About"
+      weight: 4
+
+# Social icons to be shown on the right-hand side of the navigation bar
+# The "name" field should match the name of the icon to be used
+# The list of available icons can be found at http://fontawesome.io/icons/
+  icon:
+#   - url: "mailto:me@example.com"
+#     name: "envelope-o"
+#     weight: 1
+    - url: "https://github.com/ctaymor/"
+      name: "github"
+      weight: 2
+    - url: "https://twitter.com/CarolineTaymor"
+      name: "twitter"
+      weight: 3
+    - url: "https://www.linkedin.com/in/carolinetaymor/"
+      name: "linkedin"
+      weight: 4

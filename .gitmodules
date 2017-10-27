@@ -1,0 +1,6 @@
+[submodule "themes/bisl"]
+	path = themes/bisl
+	url = https://github.com/ctaymor/bisl-theme.git
+[submodule "hugo/themes/bisl"]
+	path = hugo/themes/bisl
+	url = https://github.com/ctaymor/bisl-theme.git
