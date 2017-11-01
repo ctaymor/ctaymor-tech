@@ -1,4 +1,4 @@
 run:
-	cd hugo && hugo --verbose
+	hugo --verbose
 clean:
-	rm -rf hugo/public
+	rm -rf public
