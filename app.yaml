@@ -4,17 +4,21 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /
+- url: /$
   static_files: public/index.html
   upload: public/index.html
   secure: always
 - url: /donuts
   static_files: public/donuts/index.html
-  upload: public/index.html
+  upload: public/donuts/index.html
   secure: always
 - url: /posts
   static_files: public/posts/index.html
-  upload: public/index.html
+  upload: public/posts/index.html
+  secure: always
+- url: /posts/(.*)/
+  static_files: public/posts/\1/index.html
+  upload: public/posts/(.*)
   secure: always
 - url: /(.*)
   static_files: public/\1
