@@ -5,10 +5,14 @@ threadsafe: true
 
 handlers:
 - url: /
-  static_files: www/index.html
-  upload: www/index.html
+  static_files: hugo/public/index.html
+  upload: hugo/public/index.html
+  secure: always
+- url: /donuts
+  static_files: hugo/public/donuts/index.html
+  upload: hugo/public/index.html
   secure: always
 - url: /(.*)
-  static_files: www/\1
-  upload: www/(.*)
+  static_files: hugo/public/\1
+  upload: hugo/public/(.*)
   secure: always
