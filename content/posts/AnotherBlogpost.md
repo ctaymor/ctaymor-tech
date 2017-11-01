@@ -2,7 +2,7 @@
 title: "A different blogpost"
 date: 2017-10-21T00:04:19-07:00
 tags: [dogs, lorem ipsum, practice]
-draft: true
+draft: false
 showDate: true
 ---
 
