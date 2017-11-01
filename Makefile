@@ -1,2 +1,4 @@
 run:
-	echo "no-op for travis"
+	cd hugo && hugo --verbose
+clean:
+	rm -rf hugo/public
