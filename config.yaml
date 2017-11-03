@@ -4,6 +4,7 @@ languageCode: "en-us"
 title: "Caroline Taymor"
 theme: "bisl"
 googleAnalytics: ""
+pygmentsCodeFences: true
 
 
 params:

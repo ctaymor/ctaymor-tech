@@ -2,11 +2,11 @@
 title: "Deploying a blog with Hugo, TravisCI, and Google App Engine"
 date: 2017-10-31T00:02:19-07:00
 tags: [cd,shaving-yaks,tutorial,hugo,travis,google]
-draft: true
+draft: false
 showDate: true
 ---
 
-I recently moved this site from being a couple of static files to using [Hugo](https://gohugo.io/) to create a generated static site with a blog, served with [Google App Engine](https://cloud.google.com/appengine/). I hit a few snags trying to automate this site with [TravisCI](https://travis-ci.org/) and Google App Engine, so I thought I'd share my process.
+Because I wanted to start blogging, I recently moved tech.taymor.io from a couple of static html and scss files* to a static site with a blog generated with [Hugo](https://gohugo.io/), deployed with [Google App Engine](https://cloud.google.com/appengine/). I hit a few snags trying to automate this site with [TravisCI](https://travis-ci.org/) and Google App Engine, so I thought I'd share my process.
 
 ## Build a Hugo app, make it work locally
 I'll handwave over this a bit. I've found Hugo to have a bit of a learning curve, but that's out of scope for this post. However, assuming you have a Hugo site that looks like you want it to when you serve with `hugo server`, then you're ready to deploy.
@@ -23,7 +23,7 @@ run:
 	echo "no-op makefile for travis"
 ```
 
-Add a basic, empty golang .travis.yml file like so:
+Add a basic, empty golang .travis.yml file in your root dir like so:
 
 ```yaml
 language: go
@@ -50,7 +50,7 @@ clean:
 	rm -rf public
 ```
 
-The clean step will allow you to run `make clean` and remove your local generated site. Hugo doesn't always regenerate files properly, so you want to run against an empty public folder.
+The clean step will allow you to run `make clean` and remove your local generated site.
 
 Try running `make` from the root dir of your repo. You'll see that hugo generates a public dir with all your static files.
 
@@ -62,7 +62,7 @@ Get the [gcloud cli here](https://cloud.google.com/sdk/docs/#install_the_latest_
 Write an app.yaml file in your root repo dir like so:
 ```yaml 
 ---
-runtime: python27 # you don't care the runtime for static files. Python27 was easy
+runtime: python27 # you don't care what the runtime is for static files. Python27 was easy
 api_version: 1
 threadsafe: true
 
@@ -82,11 +82,11 @@ handlers:
 ```
 
 ### What is the app.yaml doing?
-Primarily you're setting up handlers to server your content. The url is the endpoint covered by that handler. The static_files say what static file to serve from the files uploaded on the server. The upload_files indicates what files to upload.
+Primarily you're setting up handlers to server your content. The url is the endpoint covered by that handler. The static_files say what static file to serve from the files uploaded on the server. The upload_files indicates what files to upload to the server.
 
 The regex capture groups `(.*)` in the url are then inserted in the places you see `\1` in the static_files section.
 
-There's probably a more efficient, general way to set up your handlers. However, I had a very hard time getting the posts themself to serve, and this does work.
+There's probably a more efficient, general way to set up your handlers. However, I had a very hard time getting the posts themself (and not just the posts index page) to serve, and this does work.
 
 Try deploying your app with `gcloud app deploy`.
 Check that all your pages deploy successfully, not just the index.
@@ -94,7 +94,7 @@ Check that all your pages deploy successfully, not just the index.
 ## Deploy to Google App Engine with Travis
 [Travis's docs](https://docs.travis-ci.com/user/deployment/google-app-engine/) on deploying to Google App Engine are pretty good. Be sure to only check in the encrypted key, not the unencrypted key!!
 
-I did have some problems getting Travis to decrypt the key. This is what ultimately ended up working for me:
+I did have some problems getting Travis to decrypt the key with the --add flag. This is what ultimately ended up working for me:
 
 ```yaml
 before_install:
@@ -121,19 +121,20 @@ I highly recommend you set up https for your blog. To do that, you can either us
 
 Once you have an SSL certificate set up, go to your `app.yaml` file, and for each route, add `secure: always`. This will redirect http traffic to https.
 
+This is what worked for my site. Let me know if you find it helpful.
+
 ## Why did I choose this tooling stack?
 
-I'm an engineer on Cloud Foundry. `cf push my-app` is what we build. Why isn't this a tutorial on "publishing a Hugo blog with ConcourseCi and Pivotal Web Services (Pivotal's hosted Cloud Foundry)"?
+I'm an engineer on [Cloud Foundry](https://www.cloudfoundry.org/). `cf push my-app` is what I build. Why isn't this a tutorial on "publishing a Hugo blog with Pivotal Web Services (Pivotal's hosted Cloud Foundry)"?
 
-The answer is twofold. First, I was curious about Google App Engine, and how it compares, if it does, to pushing an app with `cf push`. The answer is, for a low-traffic static "app" like this blog, I don't think it much matters. At Cloud Foundry, we're much more focused on the experience of operators at large companies, and their developers. For a few static files, if you don't care who operates your platform, I don't see any relevant difference.
+The answer is twofold. First, I was curious about Google App Engine, and how it compares, if it does, to pushing an app with `cf push`. The answer is, for a low-traffic static "app" like this blog, I don't think it much matters. At Cloud Foundry, we're focused on the experience of operators at large companies, and their developers. For a few static files, if you don't care who operates your platform, I don't see any relevant difference.
 
-So then we get to the second answer: Price. I have an employee Pivotal Web Services account, but you probably don't. And for a single instance of a tiny, static blog like this with moderate traffic, Google App Engine's free tier can't be beat. PWS isn't competing for the individual developer market, and we shouldn't. Our goal with PCF is to transform how the industry writes (and deploys) software. Our customers are enterprise customers.
+So then we get to the second and main answer: Price. I have an employee Pivotal Web Services account, but you probably don't. And for a single instance of a tiny, static blog like this with moderate traffic, Google App Engine's free tier can't be beat. PWS's strengths lie elsewhere.
 
-As for why Travis CI over ConcourseCI? Again, cost. I love concourse ci when you have complex build, test, and deploy pipelines. The idea of operating a concourse deployment just for this tiny site filled me with dread, however. It would be wildly cost in-efficient.
-
-Why did I use Google App Engine over hosting the static files in Google Cloud Storage? Simply put, https. You can't use https to serve a CloudStorage website, and I beleive the whole web should be moving towards https.
+Why did I use Google App Engine over hosting the static files in Google Cloud Storage? Simply put, https. You can't use https to serve a Cloud Storage website, and I beleive the whole web should be moving towards https.
 
 If this site ends up with enough traffic to need to move past the free tier on Google App Engine someday, maybe you'll see another tutorial on how to port it elsewhere. For now, this stack is cheap (I pay only for my domain name) and fairly easy.
 
-
 tl:dr I was curious and it was cheap.
+
+*And if you're really curious, my previous "stack" for tech.taymor.io was a single Google Cloud Platform instance into which I would ssh and git pull and restart the apache server when I had updates. I know, it's horrifying. But it worked okay enough for a site I almost never updated. It's much much better and easier now, and it lets me add a blog I might update more frequently.
