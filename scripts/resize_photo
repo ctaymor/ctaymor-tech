@@ -60,7 +60,7 @@ if [ -z "$INPUT_PATH" ]; then
 	print_usage
 fi
 
-if [ -z "$OUTPUT_PATH"]; then
+if [ -z "$OUTPUT_PATH" ]; then
   OUTPUT_PATH=$(basename $INPUT_PATH)
 fi
 
