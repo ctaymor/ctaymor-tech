@@ -1,0 +1,3 @@
+---
+staticpage: true
+---
