@@ -17,8 +17,10 @@ Dev:
 
 To Build:
 
-To build sass files, `sass www/css/index.scss www/css/index.css`
-To build hugo sass files: `cd hugo; sass themes/bisl/static/css/index.scss themes/bisl/static/css/index.css`
+To build hugo sass files: `sass themes/bisl/static/css/index.scss themes/bisl/static/css/index.css`
+
+To Serve locally:
+`hugo serve`
 
 To Deploy:
 ```bash
