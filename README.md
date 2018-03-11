@@ -17,12 +17,14 @@ Dev:
 
 To Build:
 
-To build hugo sass files: `sass themes/bisl/static/css/index.scss themes/bisl/static/css/index.css`
+To build hugo sass files: `make sass`
 
 To Serve locally:
 `hugo serve`
 
-To Deploy:
+Add a -D flag to include draft posts.
+
+To Deploy (or just git push and travis will handle it):
 ```bash
 cd ctaymor-home
 gcloud app deploy --project ctaymor-home
