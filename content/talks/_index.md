@@ -2,4 +2,4 @@
 staticpage: true
 ---
 
-A list of talks I have previously given. I am available to give them again at your event.
+I have some speaking availability for 2018. Reach out if you're interested in me giving Getting Unstuck or another talk on the subject of Golang, Ruby, debugging distributed systems, software process.
