@@ -2,7 +2,7 @@ language: go
 go: 1.9
 before_install:
 - ls -lart scripts
-- pushd scripts && sudo ./scripts/install_hugo && popd
+- pushd scripts && sudo ./install_hugo && popd
 - openssl aes-256-cbc -K $encrypted_6b8ed8e8b3dc_key -iv $encrypted_6b8ed8e8b3dc_iv
   -in travis-ci-account-key.json.enc -out travis-ci-service-account-key.json
   -d
