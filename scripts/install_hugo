@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -ex
+wget -O hugo.deb "https://github.com/gohugoio/hugo/releases/download/v0.37.1/hugo_0.37.1_Linux-64bit.deb"
+expected_sha="35b9146828538d57fa1720af7aaf08e357dc7f4ada820a5ad3fd7037868a04d2"
+computed_sha256=$(openssl sha256 hugo.deb | awk '{print $2}')
+if [ "$computed_sha256" != "$expected_sha" ]; then
+ echo "SHA256 mismatch"
+ echo "Expected SHA256: ${expected_sha}"
+ echo "Actual SHA256: ${computed_sha}"
+ exit 1
+fi
+
+sudo dpkg -i hugo.deb
+
+hugo
