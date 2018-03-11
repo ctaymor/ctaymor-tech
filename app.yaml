@@ -12,6 +12,10 @@ handlers:
   static_files: public/donuts/index.html
   upload: public/donuts/index.html
   secure: always
+- url: /talks
+  static_files: public/talks/index.html
+  upload: public/talks/index.html
+  secure: always
 - url: /posts
   static_files: public/posts/index.html
   upload: public/posts/index.html
