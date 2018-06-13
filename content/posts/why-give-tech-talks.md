@@ -1,7 +1,7 @@
 ---
-title: "Why Give Tech Talks"
+title: "Why Give Tech Tech Talks"
 date: 2018-06-12T22:20:06-07:00
-draft: true
+draft: false
 tags: [public-speaking]
 showDate: true
 ---
