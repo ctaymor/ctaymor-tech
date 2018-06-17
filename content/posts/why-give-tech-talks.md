@@ -5,7 +5,7 @@ draft: false
 tags: [public-speaking]
 showDate: true
 ---
-Last year, I set myself the goal of giving my first technical talk at a conference. I exceeded that goal in spades. I've given my talk "[Getting Unstuck: Using the Scientific Method for Debugging](/talks/)" 5 times, gotten paid to speak, and 600-700 people have seen my talk in person or on video. I also burned out on speaking, and resolved to stop giving talks. Then I changed my mind.
+Last year, I set myself the goal of giving my first technical talk at a conference. I exceeded that goal in spades. I've given my talk "[Getting Unstuck: Using the Scientific Method for Debugging](https://tech.taymor.io/talks)" 5 times, gotten paid to speak, and 600-700 people have seen my talk in person or on video. I also burned out on speaking, and resolved to stop giving talks. Then I changed my mind.
 
 # Why speak?
 I learned that I went into speaking with the wrong goals. Developing tech talks is a huge amount of work, and it can also be massively rewarding. I wish I had better understood the costs and rewards going into the process.
