@@ -9,7 +9,7 @@ pygmentsCodeFences: true
 
 params:
   author: "Caroline Taymor"
-  description: "Software Engineer. Tech Speaker."
+  description: "I make engineering teams more effective"
   githubUsername: "ctaymor"
   accent: "purple"
   showBorder: true
@@ -21,9 +21,19 @@ params:
   - "Noto+Serif"
   - "Cinzel+Decorative"
   headshotUrl: "https://storage.googleapis.com/tech-taymor/images/headshot-250square-2016b.jpg"
-  bio: "I'm a software engineer and mathematician with a passion for making operations less painful. I'm currently a software engineer at Pivotal Cloud Foundry. As lead developer, I recently led the PCF OpsManager team in building a deployer for Cloud Foundry. I first fell in love with operations while wrangling complex build and deploy pipelines, and shipping a Ruby on Rails app as a vm image on 5 different IaaSes. I have a passion for making teams better. I'm an expert in learning new programming languages, having learned Ruby, Javascript, and Go on the job. I never expected to have OpinionsTM about IaaSes, but here we are. In my spare time, I study talmud and paint. I'm available to give talks on a number of subjects at meetups and conferences on Ruby, Rails, shipping Ruby on Rails applications as VM images, pair programming, integrating with multiple IaaSes, and automating release cycles."
+  bio: |
+    Taking a 12 hour, 50 manual step emergency release process that only one person knew to a 2 hour, 2 step automated process.
+    Teaching effective and equitable facillitation and collaborative decisionmaking.
+    Finding and addressing the communication gaps in technical team communication.
+  bio2: |
+    Whatever the challenges preventing your engineering team from delivering business value consistently, I can help identify the blockers and work with the team to learn how to deliver those business values.
+  bio3: |
+    Technically, I specialize in infrastructure, platforms, devops, and release engineering, but I work with teams accross domains to improve their effectiveness.
+  availability: |
+    I am availabile to work with you via consulting, facillitation workshops, paid lunch and learns and other public speaking.
   twitter: "@CarolineTaymor"
   linkedIn: carolinetaymor
+  formspree: "https://formspree.io/f/mpzberal"
 menu:
   main:
     - url: "/"
