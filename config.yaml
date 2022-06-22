@@ -32,9 +32,6 @@ menu:
     - url: "/posts/"
       name: "Posts"
       weight: 2
-    - url: "/donuts/"
-      name: "Donuts"
-      weight: 3
     - url: "/about/"
       name: "About"
       weight: 4
