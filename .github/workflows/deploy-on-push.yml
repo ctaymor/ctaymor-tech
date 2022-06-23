@@ -6,8 +6,9 @@ jobs:
     name: learn
     runs-on: ubuntu-latest
     steps:
-      run: |
-        if [[ "${{secrets.TESTING_SECRETS}}" == "hello" ]]; then echo "YAHOOO THEY MATCHED"; fi
+      - id: learning
+        run: |
+          if [[ "${{secrets.TESTING_SECRETS}}" == "hello" ]]; then echo "YAHOOO THEY MATCHED"; fi
 #   job_id:
 #     permissions:
 #       contents: 'read'
