@@ -1,0 +1,22 @@
+@import 'color';
+@import 'font';
+@import 'grid';
+@import 'cards';
+@import 'headers_and_footers';
+
+html {
+	background: $main-bg-color;
+}
+
+body {
+	font-family: 'Noto Serif', serif;
+  color: $grey1;
+  margin: 0px;
+}
+.headshot {
+	width: '20em';
+}
+main {
+	display: inline-block;
+	width: 100%;
+}
