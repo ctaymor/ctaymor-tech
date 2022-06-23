@@ -2,7 +2,9 @@ name: deploy-on-push
 on: [push]
 
 jobs:
-  job_id:
+  deploy:
+    name: Deploy to Google App Engine
+    runs-on: ubuntu-latest
     permissions:
       contents: 'read'
       id-token: 'write'
