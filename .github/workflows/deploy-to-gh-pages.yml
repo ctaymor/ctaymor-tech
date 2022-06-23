@@ -20,10 +20,14 @@ jobs:
         with:
           hugo-version: 'latest'
           # extended: true
+      - name: Compile CSS from SCSS files
+        uses: gha-utilities/sass-build@v0.4.9
+        with:
+          source: ./themes/bisl/static/css/index.scss
+          destination:  ./themes/bisl/static/css/index.css
 
       - name: Build
         run: |
-          make sass
           hugo --minify
 
       - name: Deploy
