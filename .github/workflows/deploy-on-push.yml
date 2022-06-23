@@ -2,28 +2,20 @@ name: deploy-on-push
 on: [push]
 
 jobs:
-  learn:
-    name: learn
-    runs-on: ubuntu-latest
+  job_id:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
     steps:
-      - id: learning
-        run: |
-          if [[ "${{secrets.TESTING_SECRETS}}" == "hello" ]]; then echo "YAHOOO THEY MATCHED"; fi
-#   job_id:
-#     permissions:
-#       contents: 'read'
-#       id-token: 'write'
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v0'
+      with:
+        credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
 
-#     steps:
-#     - id: 'auth'
-#       uses: 'google-github-actions/auth@v0'
-#       with:
-#         workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-#         service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
+    - id: 'deploy'
+      uses: 'google-github-actions/deploy-appengine@v0'
 
-#     - id: 'deploy'
-#       uses: 'google-github-actions/deploy-appengine@v0'
-
-#     # Example of using the output
-#     - id: 'test'
-#       run: 'curl "${{ steps.deploy.outputs.url }}"'
+    # Example of using the output
+    - id: 'test'
+      run: 'curl "${{ steps.deploy.outputs.url }}"'
