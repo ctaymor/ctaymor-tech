@@ -51,4 +51,4 @@ If you've ruled out one out of 6000 causes but still don't know what's going on,
 - Step by step instructions for how you approach debugging your system for a new person onboarding to your team
 - Other information your teammates or customers will find helpful
 
-Tell me if you find the scientific method useful for your debugging! You can reach me on Twitter at [@CarolineTaymor](https://twitter.com/carolinetaymor) or elsewhere via the contact links on this site.
+Tell me if you find the scientific method useful for your debugging! You can reach me on Mastadon at [@caroline@hachydermio](https://hachyderm.io/@ctaymor) {{< strike >}}Twitter at https://twitter.com/carolinetaymor{{</ strike >}}  or elsewhere via the contact links on this site.
