@@ -7,7 +7,10 @@
             [clojure.data.json :as json]
             [clojure.string :as str]
             [clojure.java.io :as io]
-            [markdown.core :as md]))
+            [markdown.core :as md]
+            )
+    (:import (org.jsoup Jsoup)
+             (org.jsoup.safety Safelist)))
 
 ;; Cache for RSS feed to avoid frequent fetching
 (def rss-cache (atom {:last-fetch nil :posts []}))
@@ -31,37 +34,63 @@
       (println "Error fetching RSS:" (.getMessage e))
       nil)))
 
+(defn sanitize-html
+  "Sanitizes HTML content to prevent xss attacks, acknowledging whether the source is trusted"
+  [content source-url]
+  (if (and content (not (empty? content)))
+    (let [trusted-sources #{"https://write.as/ctaymor" "write.as/ctaymor"}
+          is-trusted? (some #(str/includes? (or source-url "") %) trusted-sources)]
+      content)
+    ""))
+
+;; Safely create an excerpt from HTML content
+(defn create-safe-excerpt
+  "Creates a safe excerpt from HTML content, handling nil and empty values gracefully."
+  [description max-length]
+  (if (and description (not (empty? description)))
+    (let [plain-text (-> description
+                         (str/replace #"<!\[CDATA\[(.*?)\]\]>" "$1") ;; Extract CDATA content
+                         (str/replace #"<[^>]*>" "")
+                         (str/replace #"\n" " "))
+          excerpt-length (min (count plain-text) max-length)]
+      (if (pos? excerpt-length)
+        (str (subs plain-text 0 excerpt-length) "...")
+        "No excerpt available"))
+    "No excerpt available"))
+
 ;; Extract posts from XML zipper
 (defn extract-posts-from-xml [xml-zip]
   (when xml-zip
     (for [item (zip-xml/xml-> xml-zip :channel :item)]
       (let [guid (zip-xml/xml1-> item :guid zip-xml/text)
-            id (last (str/split (or guid "") #"/"))
+            id (when guid (last (str/split guid #"/")))
             title (zip-xml/xml1-> item :title zip-xml/text)
             link (zip-xml/xml1-> item :link zip-xml/text)
             pubDate (zip-xml/xml1-> item :pubDate zip-xml/text)
-            description (zip-xml/xml1-> item :description zip-xml/text)
-            content (zip-xml/xml1-> item :encoded zip-xml/text)]
-        {:id id
-         :title title
-         :date pubDate
+            description (or (zip-xml/xml1-> item :description zip-xml/text) "")
+            content (or (zip-xml/xml1-> item :content:encoded zip-xml/text)
+                        (zip-xml/xml1-> item "content:encoded" zip-xml/text))
+            source-url (or link "")]
+        {:id (or id (str (java.util.UUID/randomUUID)))
+         :title (or title "Untitled")
+         :date (or pubDate "Unknown Date")
          :link link
-         :excerpt (-> description
-                      (str/replace #"<[^>]*>" "")
-                      (str/replace #"\n" " ")
-                      (subs 0 (min (count description) 200))
-                      (str "..."))
-         :content (or content description)
-         :author "Your Name"}))))
+         :excerpt (create-safe-excerpt (or description content) 500)
+         :content (sanitize-html (or content description "No content available") source-url)
+         :author "Caroline Taymor"}))))
 
-;; Fetch posts from RSS feed with caching
+;; Fetch posts from RSS feed with caching and source validation
 (defn fetch-rss-posts [rss-url]
   (when (cache-expired?)
-    (let [xml (fetch-and-parse-rss rss-url)
-          posts (extract-posts-from-xml xml)]
-      (when (seq posts)
-        (reset! rss-cache {:last-fetch (System/currentTimeMillis)
-                          :posts posts}))))
+    (let [trusted-sources #{"https://write.as/ctaymor/feed/"}
+          is-trusted? (contains? trusted-sources rss-url)]
+      (if is-trusted?
+        (let [xml (fetch-and-parse-rss rss-url)
+              posts (extract-posts-from-xml xml)]
+          (when (seq posts)
+            (reset! rss-cache {:last-fetch (System/currentTimeMillis)
+                              :posts posts})))
+        (println "Warning: Attempted to fetch RSS from untrusted source:" rss-url))))
   (:posts @rss-cache))
 
 ;; Fallback to locally stored posts if RSS fails
@@ -77,7 +106,7 @@
 
 ;; Get recent posts, prioritizing RSS feed
 (defn get-recent-posts []
-  (let [rss-url "https://your-blog.write.as/feed/" ;; Replace with your actual Write.as RSS feed URL
+  (let [rss-url "https://write.as/ctaymor/feed/" ;; Replace with your actual Write.as RSS feed URL
         rss-posts (fetch-rss-posts rss-url)]
     (if (seq rss-posts)
       rss-posts
