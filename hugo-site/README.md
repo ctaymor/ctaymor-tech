@@ -1,6 +1,7 @@
 This is the code for tech.taymor.io. PRs not accepted, but feel free to use it for inspiration/learning. (All writing content is Copyright Caroline Taymor and may not be copied or reproduced without permission).
 
-This is the monorepo for every version of tech.taymor.io. There are several project folders for different versions. The live version will say LIVE in the readme.
+This is the hugo version of the site. It is out of date and will be replaced
+# LIVE
 
 -------
 Builds:

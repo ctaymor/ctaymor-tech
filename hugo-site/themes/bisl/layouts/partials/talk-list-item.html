@@ -1,0 +1,22 @@
+<li>
+
+
+  <h4>{{ .Title}}</h4>
+  {{.Params.location}}<br>
+  {{ if .Params.slidesLink}}
+   <a href="{{ .Params.slidesLink }}">Slides</a>
+  {{end}}
+
+  {{ if .Params.videoLink}}
+   <a href="{{ .Params.videoLink }}">Video</a>
+  {{end}}
+  
+  {{ .Content }}
+
+    {{ partial "youtube-embed" .}}
+  <ul>
+    {{ range .Params.presented }}
+      <li> {{.}}</li>
+    {{end}}
+  </ul>
+</li>

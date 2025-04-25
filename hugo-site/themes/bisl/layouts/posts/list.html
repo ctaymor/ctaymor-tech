@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+{{ partial "includes.html" . }}
+<title>{{ .Site.Params.author}}'s Blog</title>
+</head>
+
+<body>
+{{ partial "header" . }}
+
+<main>
+  <div class="col span_2"></div>
+  <div class="col span_8">
+  	<div class="section group">
+  		<h1>{{ .Title }}</h1>
+  		{{ .Content }}
+  		{{ range .Data.Pages }}
+    		<h2 class="h3"><a href={{ .RelPermalink }}>{{ .Title }}</a></h2>
+  		{{ end }}
+		</div>
+	</div>
+  <div class="col span_2"></div>
+</main>
+
+{{ partial "footer" . }}
+</body>
+</html>

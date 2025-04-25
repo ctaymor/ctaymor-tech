@@ -1,0 +1,31 @@
+<head>
+{{ partial "includes.html" . }}
+<title>{{ .Title }}</title>
+</head>
+
+<body>
+{{ partial "header" . }}
+
+<main>
+  <div class="col span_2"></div>
+  <div class="col span_8">
+    <div class="section group">
+    <h2>{{ .Title }}</h2>
+
+    <h3>Tech Talks:</h3>
+
+    {{ .Content }}
+
+    <ul class="no-bullets">
+
+      {{ range .Data.Pages }} {{ partial "talk-list-item" . }} {{ end }}
+
+    </ul>
+  </div>
+  </div>
+  <div class="col span_2"></div>
+</main>
+
+
+{{ partial "footer" . }}
+</body>

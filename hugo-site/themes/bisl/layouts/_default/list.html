@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<body>
+	{{ partial "header" . }}
+  {{ range first 10 .Data.Pages }}
+    <h1>{{ .Title }}</h1>
+  {{ end }}
+</body>
+</html>

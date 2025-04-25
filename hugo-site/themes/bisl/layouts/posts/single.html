@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ .Title }}</title>
+{{ partial "includes.html" . }}
+</head>
+
+<body>
+{{ partial "header" . }}
+
+<main>
+  <div class="col span_2"></div>
+  <div class="col span_8">
+  	<div class="section group">
+  		<h1>{{ .Title }}</h1>
+  		{{ if eq true .Params.showDate}}
+  		<p class="small-font">{{ .Date.Format "January 02, 2006" }}</p>
+
+  		{{end}}
+  		<div>{{ .Content }}</div>
+	</div>
+  <div class="col span_2"></div>
+</main>
+
+
+{{ partial "footer" . }}
+</body>
+</html>

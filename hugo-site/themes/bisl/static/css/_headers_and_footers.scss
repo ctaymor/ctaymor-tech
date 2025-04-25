@@ -1,0 +1,42 @@
+.nav-bar {
+  border-top-color: $purple1;
+  border-top-style: solid;
+  border-top-width: 3px;
+  min-height: 3em;
+
+  background-color: $grey4;
+}
+
+ul.menu {
+  list-style-type: none;
+  display: inline;
+  font-family: 'Cinzel Decorative', cursive;
+  font-weight: 600;
+}
+
+li {
+	padding: .75em;	
+}
+
+li.left {
+	float: left;
+}
+li.right {
+	float: right;
+}
+
+.footer {
+  border-bottom-color: $purple1;
+  border-bottom-style: solid;
+  border-bottom-width: 5px;
+  min-height: 3em;
+
+  background-color: $grey4;
+
+  p {
+  text-align: center;
+  vertical-align: middle;
+  line-height: 3em;
+  margin: 0px;
+  }
+}
