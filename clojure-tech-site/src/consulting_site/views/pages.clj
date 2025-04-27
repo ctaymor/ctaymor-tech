@@ -3,7 +3,8 @@
   (:require
    [clojure.string :as str]
    [hickory.core :as hickory]
-   [hickory.select :as s]))
+   [hickory.select :as s]
+   [consulting-site.config :refer [site-info]]))
 
 (defn home-page []
   [:div.home-content
@@ -32,10 +33,22 @@
     [:div#recent-posts-content
      [:p "Loading recent posts..."]
      [:script "document.addEventListener('DOMContentLoaded', function() {
-               fetch('/blog').then(response => {
-                 if(response.ok) window.location.href = '/blog';
-               });
-             });"]]]])
+            fetch('/blog')
+              .then(response => response.text())
+              .then(html => {
+                // Extract blog posts from the response
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+                const blogPosts = tempDiv.querySelector('.blog-posts');
+                if(blogPosts) {
+                  document.getElementById('recent-posts-content').innerHTML = blogPosts.innerHTML;
+                }
+              })
+              .catch(error => {
+                console.error('Error fetching blog posts:', error);
+                document.getElementById('recent-posts-content').innerHTML = '<p>Failed to load recent posts</p>';
+              });
+          });"]]]])
 
 (defn about-page []
   [:div.about-content
@@ -43,7 +56,7 @@
    [:section.about-intro
     [:div.about-text
      [:h2 "Who We Are"]
-     [:p "Founded in 2020, Your Name Consulting provides expert software engineering services to businesses across various industries. With a focus on quality, performance, and maintainability, we help our clients build software that truly delivers value."]
+     [:p (str "Founded in 2020, " (:company-name site-info) "provides expert software engineering services to businesses across various industries. With a focus on quality, performance, and maintainability, we help our clients build software that truly delivers value.")]
      [:p "Our team brings decades of combined experience in software architecture, development, and technical leadership to every project we undertake."]]
     [:div.about-image
      [:img {:src "/img/team.jpg" :alt "Our Team"}]]]
@@ -98,9 +111,8 @@
      [:h2 "Get In Touch"]
      [:p "We'd love to hear about your project. Reach out to discuss how we can help with your software engineering needs."]
      [:ul.contact-details
-      [:li [:i.icon.email] "your.email@example.com"]
-      [:li [:i.icon.phone] "(123) 456-7890"]
-      [:li [:i.icon.location] "San Francisco, CA"]]]
+      [:li [:i.icon.email] (:email site-info)]
+      [:li [:i.icon.location] (:location site-info)]]]
 
     [:div.contact-form
      [:h2 "Send a Message"]
@@ -145,7 +157,7 @@
           safe-hiccup (filter #(not (contains?
                                      #{"script" "iframe" "object" "embed"}
                                      (when (vector? %) (name (first %)))))
-                             hiccup-version)]
+                              hiccup-version)]
       (println "type of safe-hiccup:" (type safe-hiccup))
       safe-hiccup)
     (catch Exception e

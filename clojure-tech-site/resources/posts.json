@@ -1,18 +1,18 @@
 [
 {
 "id": "example-post-1",
-"title": "Functional Programming Principles in Modern Software Design",
+"title": "Placeholder",
 "date": "April 10, 2025",
-"author": "Your Name",
-"excerpt": "Exploring how functional programming principles can lead to more maintainable and robust software systems...",
-"content": "# Functional Programming Principles in Modern Software Design\n\nFunctional programming has seen a resurgence in popularity in recent years, and for good reason. The principles of immutability, pure functions, and declarative programming lead to code that is easier to reason about, test, and maintain.\n\n## Why Functional Programming Matters\n\nIn a world of increasingly complex systems, the simplicity and composability offered by functional programming provide significant advantages:\n\n- **Predictability**: Pure functions always produce the same output for a given input\n- **Testability**: Functions without side effects are inherently easier to test\n- **Concurrency**: Immutable data structures eliminate many threading issues\n\nEven in languages that aren't strictly functional, adopting these principles can improve your codebase significantly."
+"author": "Caroline Taymor",
+"excerpt": "Excerpt goes here",
+"content": "Content goes here"
 },
 {
 "id": "example-post-2",
-"title": "Designing Resilient Microservices",
+"title": "example post 2",
 "date": "March 28, 2025",
-"author": "Your Name",
-"excerpt": "Strategies for building microservices that can withstand failures and scale effectively...",
-"content": "# Designing Resilient Microservices\n\nAs distributed systems become the norm, designing for resilience is more important than ever. Microservices offer many advantages, but they also introduce new failure modes that must be addressed.\n\n## Core Resilience Patterns\n\n### Circuit Breakers\n\nThe circuit breaker pattern prevents cascading failures by failing fast when a dependency is unhealthy. When errors reach a threshold, the circuit 'opens' and calls fail immediately rather than waiting for timeouts.\n\n### Bulkheads\n\nBulkheads isolate components so that failure in one area doesn't bring down the entire system. This can be implemented through separate thread pools, process isolation, or even physical infrastructure separation.\n\n### Timeouts and Retries\n\nProperly configured timeouts ensure your system doesn't hang waiting for unresponsive services. Combined with intelligent retry mechanisms (with exponential backoff), many transient failures can be recovered from automatically."
+"author": "Caroline Taymor",
+"excerpt": "excerpt",
+"content": "content"
 }
 ]

@@ -1,45 +1,42 @@
 ; src/consulting_site/views/layout.clj - Page layout/template
 (ns consulting-site.views.layout
-  (:require [hiccup.page :refer [html5 include-css include-js]]))
+  (:require [hiccup.page :refer [html5 include-css include-js]]
+            [consulting-site.config :refer [site-info]]))
 
 (defn render-page [content]
   (html5
-    [:head
-     [:meta {:charset "utf-8"}]
-     [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0"}]
-     [:title "Your Name - Software Engineering Consultant"]
-     (include-css "/css/style.css")
-     (include-js "/js/script.js")]
-    [:body
-     [:header
-      [:div.logo "Your Name"]
-      [:nav
-       [:ul
-        [:li [:a {:href "/"} "Home"]]
-        [:li [:a {:href "/about"} "About"]]
-        [:li [:a {:href "/services"} "Services"]]
-        [:li [:a {:href "/blog"} "Blog"]]
-        [:li [:a {:href "/contact"} "Contact"]]]]]
+   [:head
+    [:meta {:charset "utf-8"}]
+    [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0"}]
+    [:title (str)]
+    (include-css "/css/style.css")
+    (include-js "/js/script.js")]
+   [:body
+    [:header
+     [:div.logo (:company-name site-info)]
+     [:nav
+      [:ul
+       [:li [:a {:href "/"} "Home"]]
+       [:li [:a {:href "/about"} "About"]]
+       [:li [:a {:href "/services"} "Services"]]
+       [:li [:a {:href "/blog"} "Blog"]]
+       [:li [:a {:href "/contact"} "Contact"]]]]]
 
-     [:main content]
+    [:main content]
 
-     [:footer
-      [:div.footer-content
-       [:div.footer-section
-        [:h3 "Your Name Consulting"]
-        [:p "Professional Software Engineering Solutions"]]
-       [:div.footer-section
-        [:h3 "Contact"]
-        [:p "Email: your.email@example.com"]
-        [:p "Phone: (123) 456-7890"]]
-       [:div.footer-section
-        [:h3 "Connect"]
-        [:div.social-links
-         [:a {:href "#"} "GitHub"]
-         [:a {:href "#"} "LinkedIn"]
-         [:a {:href "#"} "Twitter"]]]]
-      [:div.copyright
-       [:p "© 2025 Your Name Consulting. All rights reserved."]]]
-       ]
-    )
-)
+    [:footer
+     [:div.footer-content
+      [:div.footer-section
+       [:h3 (:company-name site-info)]
+       [:p (:tagline site-info)]]
+      [:div.footer-section
+       [:h3 "Contact"]
+       [:p (str "Email: ", (:email site-info))]]
+      [:div.footer-section
+       [:h3 "Connect"]
+       [:div.social-links
+        [:a {:href "#"} "GitHub"]
+        [:a {:href "#"} "LinkedIn"]
+        [:a {:href "#"} "Twitter"]]]]
+     [:div.copyright
+      [:p (str "© " (:year site-info) " " (:company-name site-info) ". All rights reserved.")]]]]))
