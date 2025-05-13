@@ -9,24 +9,47 @@
 (defn home-page []
   [:div.home-content
    [:section.hero
-    [:h1 "Software Engineering Excellence"]
-    [:p.tagline "Building robust, scalable solutions for modern businesses"]
+    [:h1 "Fractional Software Engineering Leadership"]
+    [:p.tagline "Unsticking Teams Through Engineering Rigor and Collaboration"]
+    [:p.hero-description "I help engineering teams overcome the most challenging technical roadblocks by bringing deep systems expertise and structured collaboration approaches. I thrive where others get lost—in large, haunted codebases, complex debugging missions, and when teams are paralyzed by overwhelming technical challenges. I bring the battle-tested experience of someone who has 'seen some shit' in complex systems, combined with the ability to build cultural steel within your team. I'll help your engineers move from overwhelmed to empowered, transforming technical debt and process pain into sustainable engineering practices."]
     [:div.cta-buttons
      [:a.button.primary {:href "/contact"} "Get in Touch"]
-     [:a.button.secondary {:href "/services"} "Our Services"]]]
+     [:a.button.secondary {:href "/services"} "Learn More"]]]
 
-   [:section.features
-    [:h2 "Why Choose Us"]
+   [:section.when-to-bring-me-in
+    [:h2 "When to Bring Me In"]
     [:div.feature-grid
      [:div.feature
-      [:h3 "Expert Consulting"]
-      [:p "Leverage years of experience across various technology domains."]]
+      [:h3 "Complex Technical Challenges"]
+      [:p "Your team is facing a complex technical challenge that has them stuck or divided"]]
      [:div.feature
-      [:h3 "Custom Solutions"]
-      [:p "Tailored development to match your unique business requirements."]]
+      [:h3 "Operational Burden"]
+      [:p "You're drowning in operational burdens with no clear path to improvement"]]
      [:div.feature
-      [:h3 "Modern Technologies"]
-      [:p "Utilizing cutting-edge tools and practices for optimal results."]]]]
+      [:h3 "Debugging Missions"]
+      [:p "Critical debugging missions keep expanding with no resolution in sight"]]
+     [:div.feature
+      [:h3 "Deployment Issues"]
+      [:p "Your deployment processes are causing pain, delays, or reliability issues"]]]]
+
+   [:section.approach
+    [:h2 "My Approach"]
+
+    [:div.approach-section
+     [:h3 "Technical Depth That Cuts Through Complexity"]
+     [:ul.approach-list
+      [:li "Systematic debugging of \"haunted\" codebases—large, long-running, highly coupled, business-critical systems where institutional knowledge has been lost"]
+      [:li "Automation that transforms painful, error-prone processes into repeatable, junior-friendly workflows"]
+      [:li "Clear-eyed application of engineering practices that match your team's real needs, not ideological purity"]]]
+
+    [:div.approach-section
+     [:h3 "Collaborative Leadership That Builds Capability"]
+     [:ul.approach-list
+      [:li "Breaking decision paralysis through structured facilitation when stakes are high"]
+      [:li "Transferring systematic debugging approaches through deliberate pairing"]
+      [:li "Creating shared understanding across stakeholders to align technical and business priorities"]]]]
+[:section.testimonial
+    [:blockquote "Do you need someone who has Seen Some Shit in large, long-running, highly coupled, business critical code bases? Hire Caroline. - Nat Bennett"]]
 
    [:section.recent-posts
     [:h2 "Recent Blog Posts"]
@@ -74,34 +97,34 @@
 
 (defn services-page []
   [:div.services-content
-   [:h1 "Our Services"]
-
-   [:section.service
-    [:h2 "Software Architecture Consulting"]
-    [:p "We help you design robust, scalable, and maintainable software architectures tailored to your business needs."]
-    [:ul
-     [:li "System design and architecture review"]
-     [:li "Technical debt assessment"]
-     [:li "Scalability planning"]
-     [:li "Technology stack recommendations"]]]
-
-   [:section.service
-    [:h2 "Custom Software Development"]
-    [:p "End-to-end development of custom software solutions built with modern best practices."]
-    [:ul
-     [:li "Web applications and services"]
-     [:li "API development and integration"]
-     [:li "Data processing pipelines"]
-     [:li "Cloud-native applications"]]]
+   [:h1 "Services"]
 
    [:section.service
     [:h2 "Technical Leadership"]
-    [:p "Experienced technical leadership to guide your team and projects toward success."]
+    [:p "Experienced fractional technical leadership to guide your team through complex challenges."]
     [:ul
-     [:li "Team mentoring and training"]
-     [:li "Code review and quality processes"]
-     [:li "Development workflow optimization"]
-     [:li "Technical strategy planning"]]]])
+     [:li "Breaking decision paralysis on complex technical decisions"]
+     [:li "Facilitating cross-functional collaboration"]
+     [:li "Aligning stakeholders and engineering teams"]
+     [:li "Building sustainable engineering practices"]]]
+
+   [:section.service
+    [:h2 "System Debugging & Improvement"]
+    [:p "Expert debugging and system improvement for complex, business-critical codebases."]
+    [:ul
+     [:li "Systematic debugging of \"haunted\" legacy systems"]
+     [:li "Implementing automation for error-prone processes"]
+     [:li "Reducing operational burden and on-call pain"]
+     [:li "Improving deployment reliability and confidence"]]]
+
+   [:section.service
+    [:h2 "Team Capability Building"]
+    [:p "Building lasting engineering capability within your team through hands-on collaboration."]
+    [:ul
+     [:li "Deliberate pairing and knowledge transfer"]
+     [:li "Teaching systematic debugging approaches"]
+     [:li "Modeling iterative software engineering practices"]
+     [:li "Establishing sustainable on-call and incident response processes"]]]])
 
 (defn contact-page []
   [:div.contact-content
@@ -111,8 +134,7 @@
      [:h2 "Get In Touch"]
      [:p "We'd love to hear about your project. Reach out to discuss how we can help with your software engineering needs."]
      [:ul.contact-details
-      [:li [:i.icon.email] (:email site-info)]
-      [:li [:i.icon.location] (:location site-info)]]]
+      [:li [:i.icon.email] (:email site-info)]]]
 
     [:div.contact-form
      [:h2 "Send a Message"]
