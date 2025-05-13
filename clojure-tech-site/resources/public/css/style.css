@@ -1,5 +1,5 @@
 /* ===================================
-   1. VARIABLES
+   1. VARIABLES - Preserved from original
 ==================================== */
 :root {
     /* Color Palette */
@@ -47,7 +47,7 @@
 }
 
 /* ===================================
-   2. BASE STYLES
+   2. BASE STYLES - Preserved from original
 ==================================== */
 body {
     font-family: var(--font-family);
@@ -79,7 +79,7 @@ main {
 }
 
 /* ===================================
-   3. LAYOUT - HEADER & NAVIGATION
+   3. LAYOUT - HEADER & NAVIGATION - Preserved from original
 ==================================== */
 header {
     background-color: var(--secondary-dark);
@@ -116,7 +116,7 @@ nav ul li a:hover {
 }
 
 /* ===================================
-   4. BUTTONS & CTAs
+   4. BUTTONS & CTAs - Preserved from original
 ==================================== */
 .button {
     display: inline-block;
@@ -162,7 +162,7 @@ nav ul li a:hover {
 }
 
 /* ===================================
-   5. SECTIONS & CONTAINERS
+   5. SECTIONS & CONTAINERS - Updated for new content
 ==================================== */
 section {
     margin-bottom: var(--spacing-xl);
@@ -190,7 +190,7 @@ section h2::after {
     background: linear-gradient(to right, var(--accent-gold), var(--accent-orange));
 }
 
-/* Hero Section */
+/* Hero Section - Modified for better readability with longer text */
 section.hero {
     text-align: center;
     padding: var(--spacing-xl) var(--spacing-sm);
@@ -208,20 +208,28 @@ section.hero .tagline {
     font-size: 1.2rem;
     color: var(--accent-orange);
     margin-bottom: var(--spacing-lg);
+    font-weight: 500;
+}
+
+section.hero .hero-description {
+    max-width: 900px;
+    margin: 0 auto var(--spacing-lg);
+    color: var(--text-primary);
+    line-height: 1.7;
 }
 
 /* Content Boxes */
-.feature-grid, #recent-posts-content {
+.feature-grid, #recent-posts-content, .approach-section {
     background-color: var(--secondary-dark);
     padding: var(--spacing-lg);
     border-radius: var(--border-radius-md);
-    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
 }
 
-/* Feature Grid */
+/* Feature Grid - Modified to handle 4 items */
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-md);
 }
 
@@ -249,24 +257,116 @@ section.hero .tagline {
     font-size: 1.3rem;
 }
 
+/* Approach Section - New styling for the approach section */
+.approach {
+    margin-top: var(--spacing-xl);
+}
+
+.approach-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.approach-section h3 {
+    color: var(--accent-gold);
+    margin-bottom: var(--spacing-md);
+    font-size: 1.3rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: var(--spacing-xs);
+}
+
+.approach-section:nth-child(odd) h3 {
+    color: var(--accent-orange);
+}
+
+.approach-list {
+    padding-left: var(--spacing-lg);
+    margin-top: var(--spacing-sm);
+}
+
+.approach-list li {
+    margin-bottom: var(--spacing-sm);
+    position: relative;
+}
+
+.approach-list li::before {
+    content: "→";
+    position: absolute;
+    left: -1.2rem;
+    color: var(--accent-gold);
+    font-weight: bold;
+}
+
+/* Testimonial Section - Updated for separated attribution */
+.testimonial {
+    background-color: var(--secondary-dark);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    margin: var(--spacing-xl) 0;
+    text-align: center;
+    border-left: 5px solid var(--accent-gold);
+    border-right: 5px solid var(--accent-gold);
+}
+
+.testimonial blockquote {
+    font-size: 1.3rem;
+    font-style: italic;
+    margin: 0 0 var(--spacing-md) 0;
+    padding: 0;
+    position: relative;
+    color: var(--text-primary);
+}
+.testimonial blockquote::before,
+.testimonial blockquote::after {
+    content: '"';
+    color: var(--accent-orange);
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.testimonial blockquote::after {
+    content: '"';
+}
+
+.testimonial .attribution {
+    color: var(--accent-gold);
+    font-weight: 500;
+    text-align: right;
+    margin-top: var(--spacing-sm);
+}
+
 /* Services */
 .service {
     background-color: var(--secondary-dark);
     padding: var(--spacing-md);
     border-radius: var(--border-radius-md);
     margin-bottom: var(--spacing-lg);
+    border-left: 4px solid var(--accent-gold);
+}
+
+.service:nth-child(2) {
+    border-left-color: var(--accent-orange);
+}
+
+.service:nth-child(3) {
+    border-left-color: var(--accent-red);
 }
 
 .service h2 {
     color: var(--accent-gold);
     margin-bottom: var(--spacing-sm);
+    text-align: left;
+    padding-bottom: 0;
 }
 
-.service:nth-child(2n) h2 {
+.service h2::after {
+    display: none;
+}
+
+.service:nth-child(2) h2 {
     color: var(--accent-orange);
 }
 
-.service:nth-child(3n) h2 {
+.service:nth-child(3) h2 {
     color: var(--accent-red);
 }
 
@@ -277,6 +377,10 @@ section.hero .tagline {
 
 .service ul li {
     margin-bottom: var(--spacing-xs);
+}
+
+.service p {
+    margin-bottom: var(--spacing-md);
 }
 
 /* Expertise List */
@@ -308,7 +412,7 @@ section.hero .tagline {
 }
 
 /* ===================================
-   6. BLOG STYLES
+   6. BLOG STYLES - Preserved from original
 ==================================== */
 .blog-post-preview {
     margin-bottom: var(--spacing-lg);
@@ -320,6 +424,7 @@ section.hero .tagline {
     font-size: 1.5rem;
     padding-bottom: 0;
     margin-bottom: var(--spacing-xs);
+    text-align: left;
 }
 
 .blog-post-preview h2::after {
@@ -353,7 +458,7 @@ section.hero .tagline {
 }
 
 /* ===================================
-   7. CONTACT FORM
+   7. CONTACT FORM - Preserved from original
 ==================================== */
 .contact-container {
     display: grid;
@@ -387,7 +492,7 @@ input:focus, textarea:focus {
 }
 
 /* ===================================
-   8. ABOUT PAGE
+   8. ABOUT PAGE - Modified for individual consultant
 ==================================== */
 .about-intro {
     display: grid;
@@ -404,7 +509,7 @@ input:focus, textarea:focus {
 }
 
 /* ===================================
-   9. FOOTER
+   9. FOOTER - Preserved from original
 ==================================== */
 footer {
     background-color: var(--secondary-dark);
@@ -445,11 +550,15 @@ footer {
 }
 
 /* ===================================
-   10. MEDIA QUERIES
+   10. MEDIA QUERIES - Modified for better responsiveness
 ==================================== */
 @media (max-width: 992px) {
     .feature-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    section.hero h1 {
+        font-size: 2.2rem;
     }
 }
 
@@ -465,12 +574,28 @@ footer {
         gap: var(--spacing-xs);
     }
 
-    .feature-grid, .footer-content {
+    section.hero h1 {
+        font-size: 1.8rem;
+    }
+
+    section.hero .hero-description {
+        font-size: 0.95rem;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
         grid-template-columns: 1fr;
     }
 
     .about-intro {
         grid-template-columns: 1fr;
+    }
+
+    .approach-section {
+        padding: var(--spacing-md);
     }
 }
 
@@ -483,5 +608,17 @@ footer {
     .button {
         width: 100%;
         max-width: 250px;
+    }
+
+    section.hero {
+        padding: var(--spacing-lg) var(--spacing-xs);
+    }
+
+    .testimonial blockquote {
+        font-size: 1.1rem;
+    }
+
+    main {
+        padding: var(--spacing-md) var(--spacing-sm);
     }
 }

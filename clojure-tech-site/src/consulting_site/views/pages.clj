@@ -48,8 +48,9 @@
       [:li "Breaking decision paralysis through structured facilitation when stakes are high"]
       [:li "Transferring systematic debugging approaches through deliberate pairing"]
       [:li "Creating shared understanding across stakeholders to align technical and business priorities"]]]]
-[:section.testimonial
-    [:blockquote "Do you need someone who has Seen Some Shit in large, long-running, highly coupled, business critical code bases? Hire Caroline. - Nat Bennett"]]
+   [:section.testimonial
+    [:blockquote "Do you need someone who has Seen Some Shit in large, long-running, highly coupled, business critical code bases? Hire Caroline."]
+    [:div.attribution "- Nat Bennett"]]
 
    [:section.recent-posts
     [:h2 "Recent Blog Posts"]
