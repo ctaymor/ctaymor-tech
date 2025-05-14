@@ -49,6 +49,9 @@
 /* ===================================
    2. BASE STYLES - Preserved from original
 ==================================== */
+html {
+    font-size: 18px; /* Increased from browser default (usually 16px) */
+}
 body {
     font-family: var(--font-family);
     color: var(--text-primary);
