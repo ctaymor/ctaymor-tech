@@ -19,17 +19,13 @@
     [:h2 "When to Bring Me In"]
     [:div.feature-grid
      [:div.feature
-      [:h3 "Complex Technical Challenges"]
-      [:p "Your team is facing a complex technical challenge that has them stuck or divided"]]
+      [:p "Complex technical challenges have your team stuck or divided"]]
      [:div.feature
-      [:h3 "Operational Burden"]
-      [:p "You're drowning in operational burdens with no clear path to improvement"]]
+      [:p "Drowning in operational burdens with no clear path to improvement"]]
      [:div.feature
-      [:h3 "Debugging Missions"]
       [:p "Critical debugging missions keep expanding with no resolution in sight"]]
      [:div.feature
-      [:h3 "Deployment Issues"]
-      [:p "Your deployment processes are causing pain, delays, or reliability issues"]]]]
+      [:p "Deployment process is causing pain, delays, or reliability issues"]]]]
 
    [:section.approach
     [:h2 "My Approach"]
