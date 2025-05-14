@@ -11,7 +11,6 @@
    [:section.hero
     [:h1 "Fractional Software Engineering Leadership"]
     [:p.tagline "Unsticking Teams Through Engineering Rigor and Collaboration"]
-    [:p.hero-description "I help engineering teams overcome the most challenging technical roadblocks by bringing deep systems expertise and structured collaboration approaches. I thrive where others get lost—in large, haunted codebases, complex debugging missions, and when teams are paralyzed by overwhelming technical challenges. I bring the battle-tested experience of someone who has 'seen some shit' in complex systems, combined with the ability to build cultural steel within your team. I'll help your engineers move from overwhelmed to empowered, transforming technical debt and process pain into sustainable engineering practices."]
     [:div.cta-buttons
      [:a.button.primary {:href "/contact"} "Get in Touch"]
      [:a.button.secondary {:href "/services"} "Learn More"]]]
@@ -81,7 +80,7 @@
     [:div.about-text
      [:h2 "Who We Are"]
      [:p (str "Founded in 2020, " (:company-name site-info) "provides expert software engineering services to businesses across various industries. With a focus on quality, performance, and maintainability, we help our clients build software that truly delivers value.")]
-     [:p "Our team brings decades of combined experience in software architecture, development, and technical leadership to every project we undertake."]]
+     [:p "I help engineering teams overcome the most challenging technical roadblocks by bringing deep systems expertise and structured collaboration approaches. I thrive where others get lost—in large, haunted codebases, complex debugging missions, and when teams are paralyzed by overwhelming technical challenges. I bring the battle-tested experience of someone who has 'seen some shit' in complex systems, combined with the ability to build cultural steel within your team. I'll help your engineers move from overwhelmed to empowered, transforming technical debt and process pain into sustainable engineering practices."]]
     [:div.about-image
      [:img {:src "/img/team.jpg" :alt "Our Team"}]]]
 
