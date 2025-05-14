@@ -228,37 +228,61 @@ section.hero .hero-description {
     border-radius: var(--border-radius-md);
     margin-bottom: var(--spacing-md);
 }
+/* Improved "When to Bring Me In" section */
+.when-to-bring-me-in {
+    margin-top: var(--spacing-xl);
+}
 
-/* Feature Grid - Modified to handle 4 items */
+/* Simplified "When to Bring Me In" section without headers */
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
 }
 
-/* Individual Features */
 .feature {
     background-color: rgba(52, 73, 94, 0.9);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
     transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    border-left: 3px solid var(--accent-orange);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-top: 4px solid var(--accent-orange);
     height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    text-align: center;
+}
+
+/* Keep distinctive top border colors */
+.feature:nth-child(1) {
+    border-top-color: var(--accent-gold);
+}
+
+.feature:nth-child(2) {
+    border-top-color: var(--accent-orange);
+}
+
+.feature:nth-child(3) {
+    border-top-color: var(--accent-red);
+}
+
+.feature:nth-child(4) {
+    border-top-color: var(--accent-rust);
 }
 
 .feature:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
-.feature h3 {
-    color: var(--accent-gold);
-    margin-bottom: var(--spacing-sm);
-    font-size: 1.3rem;
+.feature p {
+    color: var(--text-primary);
+    margin: 0;
+    font-size: 1.1rem; /* Slightly larger text for better readability */
+    line-height: 1.5;
 }
+
 
 /* Approach Section - New styling for the approach section */
 .approach {
