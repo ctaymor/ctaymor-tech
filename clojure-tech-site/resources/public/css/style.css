@@ -232,54 +232,41 @@ section.hero .hero-description {
 .when-to-bring-me-in {
     margin-top: var(--spacing-xl);
 }
-
-/* Simplified "When to Bring Me In" section without headers */
+/* Single column with horizontal cards */
 .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .feature {
     background-color: rgba(52, 73, 94, 0.9);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
     border-radius: var(--border-radius-md);
-    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    border-top: 4px solid var(--accent-orange);
-    height: 100%;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    border-left: 4px solid var(--accent-gold); /* Left border instead of top */
     display: flex;
-    flex-direction: column;
-    justify-content: center; /* Center content vertically */
-    text-align: center;
+    align-items: center;
+    text-align: left;
 }
 
-/* Keep distinctive top border colors */
-.feature:nth-child(1) {
-    border-top-color: var(--accent-gold);
-}
-
-.feature:nth-child(2) {
-    border-top-color: var(--accent-orange);
-}
-
-.feature:nth-child(3) {
-    border-top-color: var(--accent-red);
-}
-
-.feature:nth-child(4) {
-    border-top-color: var(--accent-rust);
-}
+.feature:nth-child(1) { border-left-color: var(--accent-gold); }
+.feature:nth-child(2) { border-left-color: var(--accent-orange); }
+.feature:nth-child(3) { border-left-color: var(--accent-red); }
+.feature:nth-child(4) { border-left-color: var(--accent-rust); }
 
 .feature:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    transform: translateX(5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .feature p {
     color: var(--text-primary);
     margin: 0;
-    font-size: 1.1rem; /* Slightly larger text for better readability */
+    font-size: 1.1rem;
     line-height: 1.5;
 }
 
