@@ -35,8 +35,6 @@
       [:div.footer-section
        [:h3 "Connect"]
        [:div.social-links
-        [:a {:href "#"} "GitHub"]
-        [:a {:href "#"} "LinkedIn"]
-        [:a {:href "#"} "Twitter"]]]]
+        [:a {:href (get-in site-info [:social-links :linkedin])} "LinkedIn"]]]]
      [:div.copyright
       [:p (str "© " (:year site-info) " " (:company-name site-info) ". All rights reserved.")]]]]))

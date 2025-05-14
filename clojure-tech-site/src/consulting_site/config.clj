@@ -8,6 +8,4 @@
    :email "caroline@taymor.io"
    :location "Berkeley, CA"
    :year "2025"
-   :social-links {:github "#"
-                  :linkedin "#"
-                  :twitter "#"}})(ns consulting-site.config)
+   :social-links {:linkedin "https://www.linkedin.com/in/carolinetaymor/"}})(ns consulting-site.config)
