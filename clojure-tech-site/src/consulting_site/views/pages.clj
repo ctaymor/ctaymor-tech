@@ -78,7 +78,7 @@
      [:p (str "Founded in 2020, " (:company-name site-info) "provides expert software engineering services to businesses across various industries. With a focus on quality, performance, and maintainability, we help our clients build software that truly delivers value.")]
      [:p "I help engineering teams overcome the most challenging technical roadblocks by bringing deep systems expertise and structured collaboration approaches. I thrive where others get lost—in large, haunted codebases, complex debugging missions, and when teams are paralyzed by overwhelming technical challenges. I bring the battle-tested experience of someone who has 'seen some shit' in complex systems, combined with the ability to build cultural steel within your team. I'll help your engineers move from overwhelmed to empowered, transforming technical debt and process pain into sustainable engineering practices."]]
     [:div.about-image
-     [:img {:src "/img/team.jpg" :alt "Our Team"}]]]
+     [:img {:src "/images/carolineTaymorHeadshot2025.jpg" :alt "Headshot of Caroline Taymor, a white curly haired person in a black shirt with red overshirt in front of dogwoods"}]]]
 
    [:section.expertise
     [:h2 "Our Expertise"]
@@ -129,8 +129,9 @@
     [:div.contact-info
      [:h2 "Get In Touch"]
      [:p "We'd love to hear about your project. Reach out to discuss how we can help with your software engineering needs."]
-     [:ul.contact-details
-      [:li [:i.icon.email] (:email site-info)]]]
+     [:contact-details
+      [:span "📧 "] [:a {:href (str "mailto:" (:email site-info) "?subject=Consulting Inquiry")}
+                                                   (:email site-info)]]]
 
     [:div.contact-form
      [:h2 "Send a Message"]

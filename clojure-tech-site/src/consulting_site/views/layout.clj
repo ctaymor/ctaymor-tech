@@ -31,7 +31,8 @@
        [:p (:tagline site-info)]]
       [:div.footer-section
        [:h3 "Contact"]
-       [:p (str "Email: ", (:email site-info))]]
+       [:p "Email: " [:a {:href (str "mailto:" (:email site-info) "?subject=Consulting Inquiry")}
+                        (:email site-info)]]]
       [:div.footer-section
        [:h3 "Connect"]
        [:div.social-links
