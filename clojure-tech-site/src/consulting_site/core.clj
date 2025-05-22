@@ -9,14 +9,18 @@
             [hiccup.page :refer [html5 include-css include-js]]
             [consulting-site.views.layout :as layout]
             [consulting-site.views.pages :as pages]
+            [consulting-site.views.pages.home :as home]
+            [consulting-site.views.pages.services :as services]
+            [consulting-site.views.pages.contact :as contact]
+            [consulting-site.views.pages.about :as about]
             [consulting-site.blog :as blog]))
 
 ;; Define our routes
 (defroutes app-routes
-  (GET "/" [] (layout/render-page (pages/home-page)))
-  (GET "/about" [] (layout/render-page (pages/about-page)))
-  (GET "/services" [] (layout/render-page (pages/services-page)))
-  (GET "/contact" [] (layout/render-page (pages/contact-page)))
+  (GET "/" [] (layout/render-page (home/home-page)))
+  (GET "/about" [] (layout/render-page (about/about-page)))
+  (GET "/services" [] (layout/render-page (services/services-page)))
+  (GET "/contact" [] (layout/render-page (contact/contact-page)))
   (GET "/blog" [] (layout/render-page (pages/blog-page (blog/get-recent-posts))))
   (GET "/blog/:id" [id] (layout/render-page (pages/blog-post-page (blog/get-post-by-id id))))
   (route/resources "/")
