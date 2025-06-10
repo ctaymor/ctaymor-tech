@@ -1,18 +1,10 @@
 [
 {
-"id": "example-post-1",
-"title": "Placeholder",
+"id": "placeholder-1",
+"title": "Blogposts coming soon",
 "date": "April 10, 2025",
 "author": "Caroline Taymor",
-"excerpt": "Excerpt goes here",
-"content": "Content goes here"
-},
-{
-"id": "example-post-2",
-"title": "example post 2",
-"date": "March 28, 2025",
-"author": "Caroline Taymor",
-"excerpt": "excerpt",
-"content": "content"
+"excerpt": "Check out https://write.as/ctaymor/ in the meantime",
+"content": "You can find recent newsletters at https://write.as/ctaymor/"
 }
 ]
