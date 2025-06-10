@@ -11,7 +11,7 @@
    [:section.about-intro
     [:div.about-text
      [:h2 "Who I am"]
-     [:p (str "Founded in 2020, " (:company-name site-info) "provides expert software engineering services to businesses across various industries. With a focus on quality, performance, and maintainability, we help our clients build software that truly delivers value.")]
+     [:p (str "Founded in 2020, " (:company-name site-info) " provides expert software engineering services to businesses across various industries. With a focus on quality, performance, and maintainability, we help our clients build software that truly delivers value.")]
 
      [:h1 "About Caroline Taymor"]
      [:p "As a Bay Area native and Berkeley resident, I founded Caroline Taymor Consulting in 2022 to create more balance in my life while continuing to do meaningful technical work. I help teams tackle complex technical challenges through a blend of deep systems expertise and structured collaboration approaches."]
