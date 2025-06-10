@@ -1,2 +1,7 @@
 serve:
-				lein ring server
+	lein ring server
+build:
+    lein run build
+
+serve-dist:
+    pushd dist/ && ruby -run -ehttpd . -p3000 && popd
