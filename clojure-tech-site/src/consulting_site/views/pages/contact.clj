@@ -8,7 +8,7 @@
    [:div.contact-container
     [:div.contact-info
      [:h2 "Get In Touch"]
-     [:p "We'd love to hear about your project. Reach out to discuss how we can help with your software engineering needs."]
+     [:p "I'd love to hear about your project. Reach out to discuss how I can help with your software engineering needs."]
      [:contact-details
       [:span "📧 "] [:a {:href (str "mailto:" (:email site-info) "?subject=Consulting Inquiry")}
                                                    (:email site-info)]]]
@@ -29,3 +29,5 @@
        [:label {:for "message"} "Message"]
        [:textarea#message {:name "message" :rows "5" :required true}]]
       [:button.button.primary {:type "submit"} "Send Message"]]]]])
+
+(def page contact-page)

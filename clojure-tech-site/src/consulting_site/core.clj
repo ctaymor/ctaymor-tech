@@ -9,20 +9,26 @@
             [hiccup.page :refer [html5 include-css include-js]]
             [consulting-site.views.layout :as layout]
             [consulting-site.views.pages :as pages]
-            [consulting-site.views.pages.home :as home]
-            [consulting-site.views.pages.services :as services]
-            [consulting-site.views.pages.contact :as contact]
-            [consulting-site.views.pages.about :as about]
-            [consulting-site.blog :as blog]))
+            [consulting-site.views.pages
+             [home :as home]
+             [services :as services]
+             [contact :as contact]
+             [about :as about]
+             [blog :as blog-views]]
+            [consulting-site.blog :as blog]
+            ))
+
+;; Add this after your requires, before defroutes
+(println "Available in blog-views:" (keys (ns-publics 'consulting-site.views.pages.blog)))
 
 ;; Define our routes
 (defroutes app-routes
-  (GET "/" [] (layout/render-page (home/home-page)))
-  (GET "/about" [] (layout/render-page (about/about-page)))
-  (GET "/services" [] (layout/render-page (services/services-page)))
-  (GET "/contact" [] (layout/render-page (contact/contact-page)))
-  (GET "/blog" [] (layout/render-page (pages/blog-page (blog/get-recent-posts))))
-  (GET "/blog/:id" [id] (layout/render-page (pages/blog-post-page (blog/get-post-by-id id))))
+  (GET "/" [] (layout/render-page (home/page)))
+  (GET "/about" [] (layout/render-page (about/page)))
+  (GET "/services" [] (layout/render-page (services/page)))
+  (GET "/contact" [] (layout/render-page (contact/page)))
+  (GET "/blog" [] (layout/render-page (blog-views/page (blog/get-recent-posts))))
+  (GET "/blog/:id" [id] (layout/render-page (blog-views/post (blog/get-post-by-id id))))
   (route/resources "/")
   (route/not-found (layout/render-page (pages/not-found-page))))
 
