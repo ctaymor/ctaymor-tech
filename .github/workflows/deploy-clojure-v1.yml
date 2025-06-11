@@ -35,7 +35,11 @@ jobs:
           sudo mv lein /usr/local/bin/
 
       - name: Build site
-        run: lein run build
+        run: |
+          pwd
+          ls -la
+          cat project.clj
+          lein run build
 
       - name: Deploy to Netlify
         uses: netlify/actions/cli@master
