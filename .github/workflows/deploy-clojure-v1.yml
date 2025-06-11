@@ -1,5 +1,8 @@
 name: Deploy to Netlify
-
+defaults:
+  run:
+    working-directory:
+      clojure-tech-site
 on:
   push:
     branches: [ main ]
