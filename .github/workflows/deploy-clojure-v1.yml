@@ -17,7 +17,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+      - uses: actions/setup-node@v4 # Used only to install netlify cli with npm
+        with:
+          node-version: 18
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -30,24 +32,17 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/project.clj') }}
           restore-keys: ${{ runner.os }}-m2
-
       - name: Install Leiningen
         run: |
           curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
           chmod +x lein
           sudo mv lein /usr/local/bin/
-
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
       - name: Build site
-        run: |
-          pwd
-          ls -la
-          cat project.clj
-          lein run build
-
+        run: lein run build
       - name: Deploy to Netlify
-        uses: netlify/actions/cli@master
-        with:
-          args: deploy --dir=dist --prod
+        run: netlify deploy --prod --dir=dist
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
