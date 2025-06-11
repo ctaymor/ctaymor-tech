@@ -17,7 +17,8 @@
              [about :as about]
              [blog :as blog-views]]
             [consulting-site.blog :as blog]
-            ))
+            )
+  (:gen-class))
 
 ;; Add this after your requires, before defroutes
 (println "Available in blog-views:" (keys (ns-publics 'consulting-site.views.pages.blog)))
