@@ -6,3 +6,5 @@ serve-dist:
   pushd dist/ && ruby -run -ehttpd . -p3000 && popd
 test:
   lein test
+repl:
+  lein repl
