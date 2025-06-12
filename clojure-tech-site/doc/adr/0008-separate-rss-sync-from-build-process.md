@@ -6,6 +6,8 @@ Date: 2025-06-11
 
 Accepted
 
+Influences [9. Store synced RSS feed in S3 for reproducible builds](0009-store-synced-rss-feed-in-s3-for-reproducible-builds.md)
+
 ## Context
 
 Site needs to sync content from external RSS feed, but build process should be fast and predictable.

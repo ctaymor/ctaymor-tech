@@ -5,6 +5,10 @@ Date: 2025-06-12
 
 Accepted
 
+Influences [11. Remove dynamic clojure site](0011-remove-dynamic-clojure-site.md)
+
+Dependency [8. Separate RSS Sync from Build Process](0008-separate-rss-sync-from-build-process.md)
+
 ## Context
 
 Need automated RSS syncing with build reproducibility and offline capability. Two options: (1) separate sync workflow storing to S3, or (2) RSS fetching during build process.

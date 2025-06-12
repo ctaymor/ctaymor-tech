@@ -2,9 +2,6 @@
 (defproject consulting-site "0.1.0-SNAPSHOT"
   :description "Professional software engineering consulting website"
   :dependencies [[org.clojure/clojure "1.11.1"]
-                 [ring "1.9.6"]
-                 [ring/ring-defaults "0.3.4"]
-                 [compojure "1.7.0"]
                  [hiccup "1.0.5"]
                  [hickory "0.7.1"]
                  [org.clojure/data.json "2.4.0"]

@@ -5,6 +5,8 @@ Date: 2025-06-11
 
 Accepted
 
+Influences [11. Remove dynamic clojure site](0011-remove-dynamic-clojure-site.md)
+
 ## Context
 
  Need to deploy a simple Clojure consulting website with minimal traffic (1-2 views/week) and low maintenance overhead.

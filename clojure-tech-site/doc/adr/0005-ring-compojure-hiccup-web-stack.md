@@ -6,6 +6,8 @@ Date: 2025-06-11
 
 Accepted
 
+Superseded by [11. Remove dynamic clojure site](0011-remove-dynamic-clojure-site.md)
+
 ## Context
 
 Need to build a web application with static pages and dynamic blog content integration.
