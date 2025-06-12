@@ -12,19 +12,28 @@
     (:import (org.jsoup Jsoup)
              (org.jsoup.safety Safelist)))
 
-;; Cache for RSS feed to avoid frequent fetching
-(def rss-cache (atom {:last-fetch nil :posts []}))
+(def rss-cache
+  "Deprecated. Stores an in-memory cache of posts for dynamic use"
+  (atom {:last-fetch nil :posts []}))
 
-;; Time to consider cache stale (1 hour in milliseconds)
-(def cache-lifetime (* 1000 60 60))
+(def cache-lifetime
+  "Deprecated. The time when the dynamic post cache should be stale"
+  (* 1000 60 60))
 
-(defn cache-expired? []
+(defn cache-expired?
+  "Deprecated. Check if the deprecated dynamic cache is stale"
+  []
   (let [last-fetch (:last-fetch @rss-cache)]
     (or (nil? last-fetch)
         (> (- (System/currentTimeMillis) last-fetch) cache-lifetime))))
 
-;; Parse RSS feed from Write.as
-(defn fetch-and-parse-rss [rss-url]
+(defn fetch-and-parse-rss
+  "Gets data from a remote RSS URL and returns parsed XML.
+  Takes a rss-url, which should be the feed url for a valid rss feed.
+
+  This function depends on a network connection.
+  "
+  [rss-url]
   (try
     (let [response (client/get rss-url)]
       (when (= 200 (:status response))
@@ -35,7 +44,11 @@
       nil)))
 
 (defn sanitize-html
-  "Sanitizes HTML content to prevent xss attacks, acknowledging whether the source is trusted"
+  "BROKEN: Sanitizes HTML content to prevent xss attacks, acknowledging whether the source is trusted.
+  Takes two args: `content`, which should be the string to be sanitized and `source-url`, which is the url this string originated from.
+
+  NOTE: This function may be broken?? I'm not sure it actually sanitizes anything right now.
+  "
   [content source-url]
   (if (and content (not (empty? content)))
     (let [trusted-sources #{"https://write.as/ctaymor" "write.as/ctaymor"}
@@ -43,14 +56,15 @@
       content)
     ""))
 
-;; Safely create an excerpt from HTML content
 (defn create-safe-excerpt
-  "Creates a safe excerpt from HTML content, handling nil and empty values gracefully."
+  "Creates a safe, short excerpt from HTML content, handling nil and empty values gracefully.
+
+  Takes `description` which is the full length text to get an excerpt from and `max-length` which is the length to cut the description down to"
   [description max-length]
   (if (and description (not (empty? description)))
     (let [plain-text (-> description
                          (str/replace #"<!\[CDATA\[(.*?)\]\]>" "$1") ;; Extract CDATA content
-                         (str/replace #"<[^>]*>" "")
+                         (str/replace #"<[^>]*>" "") ;; Remove all html tags
                          (str/replace #"\n" " "))
           excerpt-length (min (count plain-text) max-length)]
       (if (pos? excerpt-length)
@@ -58,8 +72,11 @@
         "No excerpt available"))
     "No excerpt available"))
 
-;; Extract posts from XML zipper
-(defn extract-posts-from-xml [xml-zip]
+(defn extract-posts-from-xml
+  "Takes zipped XML from an RSS feed and returns a structured keyword map with the context
+
+  Takes `xml-zip` which should be an xml zipper from an RSS feed"
+  [xml-zip]
   (when xml-zip
     (for [item (zip-xml/xml-> xml-zip :channel :item)]
       (let [guid (zip-xml/xml1-> item :guid zip-xml/text)
@@ -80,7 +97,12 @@
          :author "Caroline Taymor"}))))
 
 ;; Fetch posts from RSS feed with caching and source validation
-(defn fetch-rss-posts [rss-url]
+(defn fetch-rss-posts
+    "Fetches an RSS feed, and returns structured posts from the feed
+
+  Takes a `rss-url` from which to fetch the RSS feed. It should be a valid rss feed endpoint
+    TODO: Remove caching logic"
+  [rss-url]
   (when (cache-expired?)
     (let [trusted-sources #{"https://write.as/ctaymor/feed/"}
           is-trusted? (contains? trusted-sources rss-url)]
@@ -93,8 +115,10 @@
         (println "Warning: Attempted to fetch RSS from untrusted source:" rss-url))))
   (:posts @rss-cache))
 
-;; Fallback to locally stored posts if RSS fails
-(defn load-local-posts []
+
+(defn load-local-posts
+  "Load blog posts from the resources/posts.json file"
+  []
   (try
     (let [posts-file (io/resource "posts.json")]
       (if posts-file
@@ -104,15 +128,18 @@
       (println "Error loading local posts:" (.getMessage e))
       [])))
 
-;; Get recent posts, prioritizing RSS feed
-(defn get-recent-posts []
+(defn get-recent-posts
+  "Deprecated. Fetch posts from my write.as feed, and if that fails, fetch from local posts."
+  []
   (let [rss-url "https://write.as/ctaymor/feed/" ;; Replace with your actual Write.as RSS feed URL
         rss-posts (fetch-rss-posts rss-url)]
     (if (seq rss-posts)
       rss-posts
       (load-local-posts))))
 
-;; Get a specific post by ID
-(defn get-post-by-id [id]
+(defn get-post-by-id
+  "Get a single post by id
+  Takes an `id` which should be the id of a post."
+  [id]
   (let [posts (get-recent-posts)]
     (first (filter #(= (:id %) id) posts))))
