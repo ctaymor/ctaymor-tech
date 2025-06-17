@@ -10,8 +10,7 @@
              [contact :as contact]
              [about :as about]
              [blog :as blog-views]]
-            [consulting-site.blog :as blog]
-            )
+            [consulting-site.blog :as blog])
   (:gen-class))
 
 (defn copy-resources []
@@ -58,6 +57,7 @@
 
 ;; Entry point
 (defn -main [& args]
-  (if (= (first args) "build")
-    (generate-static-site)
-    (println "Static-only site. Use 'lein run build' to generate, then serve dist/ folder.")))
+  (case (first args)
+    "build" (generate-static-site)
+    "rss-sync" (println "RSS sync placeholder - will implement next")
+    (println "Commands: 'build' or 'sync-rss'")))
