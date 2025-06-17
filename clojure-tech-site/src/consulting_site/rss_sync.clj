@@ -34,9 +34,9 @@
   [html]
   (-> html
       ; Remove dangerous tags entirely
-      (clojure.string/replace #"<(?:script|style|iframe)[^>]*>.*?</(?:script|style|iframe)>" "")
+      (str/replace #"<(?:script|style|iframe)[^>]*>.*?</(?:script|style|iframe)>" "")
       ; Keep only safe tags, strip everything else
-      (clojure.string/replace #"<(?!/?(p|strong|em|a|ul|ol|li|br)\b)[^>]*>" "")))
+      (str/replace #"<(?!/?(p|strong|em|a|ul|ol|li|br)\b)[^>]*>" "")))
 
 (defn decode-html-entities [text]
   (-> text
