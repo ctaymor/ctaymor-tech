@@ -52,14 +52,14 @@
   [text]
   (-> text
       (decode-html-entities)
-      (clojure.string/replace #"<[^>]*>" "")))
+      (str/replace #"<[^>]*>" "")))
 
 (defn sanitize-html
   "Remove all html tags other than a handful of known safe tags for links and formatting."
   [text]
   (-> text
       (decode-html-entities)
-      (clojure.string/replace #"<(?!/?(p|strong|em|a|ul|ol|li|br)\b)[^>]*>" "")))
+      (str/replace #"<(?!/?(p|strong|em|a|ul|ol|li|br)\b)[^>]*>" "")))
 
 (defn create-safe-excerpt
   "Creates a safe, short excerpt from HTML content, handling nil and empty values gracefully.
