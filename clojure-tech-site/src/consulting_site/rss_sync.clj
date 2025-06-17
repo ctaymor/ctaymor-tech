@@ -3,25 +3,16 @@
             [clojure.xml :as xml]
             [clojure.zip :as zip]
             [clojure.string :as str]
-            [clojure.data.zip.xml :as zip-xml]))
-;;    (:import (org.jsoup Jsoup)
-;;             (org.jsoup.safety Safelist)))
-(def rss-cache
-  "Deprecated. Stores an in-memory cache of posts for dynamic use"
-  (atom {:last-fetch nil :posts []}))
+            [clojure.data.zip.xml :as zip-xml]
+            [hickory.utils :as utils]))
 
-(def cache-lifetime
-  "Deprecated. The time when the dynamic post cache should be stale"
-  (* 1000 60 60))
+(def allowed-sources
+  #{"https://write.as/ctaymor" "write.as/ctaymor"})
 
-(defn cache-expired?
-  "Deprecated. Check if the deprecated dynamic cache is stale"
-  []
-  (let [last-fetch (:last-fetch @rss-cache)]
-    (or (nil? last-fetch)
-        (> (- (System/currentTimeMillis) last-fetch) cache-lifetime))))
+(defn trusted-source? [url]
+  (contains? allowed-sources url))
 
-(defn fetch-and-parse-rss
+(defn fetch-rss-as-xml
   "Gets data from a remote RSS URL and returns parsed XML.
   Takes a rss-url, which should be the feed url for a valid rss feed.
 
@@ -38,17 +29,38 @@
       nil)))
 
 (defn sanitize-html
-  "BROKEN: Sanitizes HTML content to prevent xss attacks, acknowledging whether the source is trusted.
-  Takes two args: `content`, which should be the string to be sanitized and `source-url`, which is the url this string originated from.
+  "Sanitize html in a given string. Strings from trusted URLs should have html tags allowed"
+  [html]
+  (-> html
+      ; Remove dangerous tags entirely
+      (clojure.string/replace #"<(?:script|style|iframe)[^>]*>.*?</(?:script|style|iframe)>" "")
+      ; Keep only safe tags, strip everything else
+      (clojure.string/replace #"<(?!/?(p|strong|em|a|ul|ol|li|br)\b)[^>]*>" "")))
 
-  NOTE: This function may be broken?? I'm not sure it actually sanitizes anything right now.
-  "
-  [content source-url]
-  (if (and content (not (empty? content)))
-    (let [trusted-sources #{"https://write.as/ctaymor" "write.as/ctaymor"}
-          is-trusted? (some #(str/includes? (or source-url "") %) trusted-sources)]
-      content)
-    ""))
+(defn decode-html-entities [text]
+  (-> text
+      (clojure.string/replace #"&amp;" "&")
+      (clojure.string/replace #"&lt;" "<")
+      (clojure.string/replace #"&gt;" ">")
+      (clojure.string/replace #"&quot;" "\"")))
+
+(defn strip-html
+  "Remove ALL html tags from the text and creates a plain string.
+
+  This removes known safe tags as well. This is useful for excerpting, where character count matters and html could mess with that in weird ways"
+  [text]
+  (-> text
+      (decode-html-entities)
+      (clojure.string/replace #"<[^>]*>" "")))
+
+(defn sanitize-html
+  "Remove all html tags other than a handful of known safe tags for links and formatting."
+  [text]
+  (-> text
+      (decode-html-entities)
+      (clojure.string/replace #"<(?!/?(p|strong|em|a|ul|ol|li|br)\b)[^>]*>" "")
+      ))
+
 (defn create-safe-excerpt
   "Creates a safe, short excerpt from HTML content, handling nil and empty values gracefully.
 
@@ -57,7 +69,7 @@
   (if (and description (not (empty? description)))
     (let [plain-text (-> description
                          (str/replace #"<!\[CDATA\[(.*?)\]\]>" "$1") ;; Extract CDATA content
-                         (str/replace #"<[^>]*>" "") ;; Remove all html tags
+                         (strip-html)
                          (str/replace #"\n" " "))
           excerpt-length (min (count plain-text) max-length)]
       (if (pos? excerpt-length)
@@ -86,24 +98,28 @@
          :date (or pubDate "Unknown Date")
          :link link
          :excerpt (create-safe-excerpt (or description content) 500)
-         :content (sanitize-html (or content description "No content available") source-url)
+         :content (sanitize-html source-url)
          :author "Caroline Taymor"}))))
 
-;; Fetch posts from RSS feed with caching and source validation
-(defn fetch-rss-posts
-  "Fetches an RSS feed, and returns structured posts from the feed
+(defn write-json-to-file
+  [content]
+  ;; TODO do stuff
+  )
 
-  Takes a `rss-url` from which to fetch the RSS feed. It should be a valid rss feed endpoint
-    TODO: Remove caching logic"
-  [rss-url]
-  (when (cache-expired?)
-    (let [trusted-sources #{"https://write.as/ctaymor/feed/"}
-          is-trusted? (contains? trusted-sources rss-url)]
-      (if is-trusted?
-        (let [xml (fetch-and-parse-rss rss-url)
-              posts (extract-posts-from-xml xml)]
-          (when (seq posts)
-            (reset! rss-cache {:last-fetch (System/currentTimeMillis)
-                               :posts posts})))
-        (println "Warning: Attempted to fetch RSS from untrusted source:" rss-url))))
-  (:posts @rss-cache))
+(defn sync-rss-to-json [url]
+  (trusted-source? url)
+  (let [content (fetch-rss-as-xml url)]
+    (extract-posts-from-xml content)
+    (write-json-to-file content)))
+
+
+
+
+
+
+
+
+
+
+
+

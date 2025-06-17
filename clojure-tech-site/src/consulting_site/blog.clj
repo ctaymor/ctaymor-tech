@@ -22,7 +22,7 @@
   "Deprecated. Fetch posts from my write.as feed, and if that fails, fetch from local posts."
   []
   (let [rss-url "https://write.as/ctaymor/feed/" ;; Replace with your actual Write.as RSS feed URL
-        rss-posts (rss-sync/fetch-rss-posts rss-url)]
+        rss-posts (rss-sync/fetch-and-parse-rss rss-url)]
     (if (seq rss-posts)
       rss-posts
       (load-local-posts))))
@@ -33,3 +33,4 @@
   [id]
   (let [posts (get-recent-posts)]
     (first (filter #(= (:id %) id) posts))))
+
