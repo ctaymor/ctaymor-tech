@@ -17,7 +17,6 @@
           (json/read-str (slurp posts-file) :key-fn keyword)
           []))
       (catch Exception e
-        (println "Error loading built posts:" (.getMessage e))
         []))
   )
 (defn load-local-posts
@@ -25,21 +24,18 @@
   []
   (try
     (let [posts-file (io/resource "posts.json")]
-      (if (.exists posts-file)
+      (if posts-file ; Note that resources must be checked differently than files
         (json/read-str (slurp posts-file) :key-fn keyword)
         []))
     (catch Exception e
-      (println "Error loading local posts:" (.getMessage e))
       [])))
 (defn load-posts
   []
-  (try
-    (load-built-posts)
-    (catch Exception e
-      (println "Error loading build posts. Now loading local posts:" (.getMessage e)
-               [])
-      (load-local-posts)))
-  )
+  (let [built-posts (load-built-posts)]
+    (if (seq built-posts)
+      built-posts
+      (load-local-posts))))
+
 (defn get-recent-posts
   "Deprecated. Fetch posts from my write.as feed, and if that fails, fetch from local posts."
   []
