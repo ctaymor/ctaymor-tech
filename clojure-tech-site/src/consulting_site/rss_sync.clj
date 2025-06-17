@@ -59,7 +59,8 @@
   [text]
   (-> text
       (decode-html-entities)
-      (str/replace #"<(?!/?(p|strong|em|a|ul|ol|li|br)\b)[^>]*>" "")))
+      (str/replace #"<(?!\/?(p|strong|em|a|ul|ol|li|br)\b)[^>]*>" "")
+      ))
 
 (defn create-safe-excerpt
   "Creates a safe, short excerpt from HTML content, handling nil and empty values gracefully.
@@ -94,11 +95,11 @@
                         (zip-xml/xml1-> item "content:encoded" zip-xml/text))
             source-url (or link "")]
         {:id (or id (str (java.util.UUID/randomUUID)))
-         :title (or title "Untitled")
+         :title (or (sanitize-html title) "Untitled")
          :date (or pubDate "Unknown Date")
          :link link
          :excerpt (create-safe-excerpt (or description content) 500)
-         :content (sanitize-html source-url)
+         :content (sanitize-html content)
          :author "Caroline Taymor"}))))
 
 (defn write-json-to-file [posts]

@@ -31,4 +31,16 @@
     (is (not (clojure.string/includes?
              (rss/sanitize-html
               "&lt;script&gt;alert('bad')&lt;/script&gt;")
-             "<script>")))))
+             "<script>"))))
+  (testing "Removes non-allowed tags"
+        (is (not (clojure.string/includes?
+                 (rss/sanitize-html
+                  "<iframe>;alert('bad')</iframe>")
+                 "<iframe>"))))
+    (testing "Removes non-allowed tags"
+          (is (clojure.string/includes?
+                   (rss/sanitize-html
+                    "<a href=\"google.com\">Good Bolded Text</a>")
+                   "<a href=\"google.com\">")))
+
+    )
