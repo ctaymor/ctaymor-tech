@@ -6,23 +6,45 @@
    [clojure.java.io :as io]
    [consulting-site.rss-sync :as rss-sync]))
 
+(defn load-built-posts
+  "Load blog posts from the build/posts.json file.
+
+  These are generated during the build phase"
+  []
+    (try
+      (let [posts-file (io/file "build/posts.json")]
+        (if (.exists posts-file)
+          (json/read-str (slurp posts-file) :key-fn keyword)
+          []))
+      (catch Exception e
+        (println "Error loading built posts:" (.getMessage e))
+        []))
+  )
 (defn load-local-posts
   "Load blog posts from the resources/posts.json file"
   []
   (try
     (let [posts-file (io/resource "posts.json")]
-      (if posts-file
+      (if (.exists posts-file)
         (json/read-str (slurp posts-file) :key-fn keyword)
         []))
     (catch Exception e
       (println "Error loading local posts:" (.getMessage e))
       [])))
-
+(defn load-posts
+  []
+  (try
+    (load-built-posts)
+    (catch Exception e
+      (println "Error loading build posts. Now loading local posts:" (.getMessage e)
+               [])
+      (load-local-posts)))
+  )
 (defn get-recent-posts
   "Deprecated. Fetch posts from my write.as feed, and if that fails, fetch from local posts."
   []
   (let [rss-url "https://write.as/ctaymor/feed/" ;; Replace with your actual Write.as RSS feed URL
-        rss-posts (rss-sync/fetch-and-parse-rss rss-url)]
+        rss-posts (rss-sync/sync-rss-to-json rss-url)]
     (if (seq rss-posts)
       rss-posts
       (load-local-posts))))
@@ -31,6 +53,6 @@
   "Get a single post by id
   Takes an `id` which should be the id of a post."
   [id]
-  (let [posts (get-recent-posts)]
+  (let [posts (load-posts)]
     (first (filter #(= (:id %) id) posts))))
 

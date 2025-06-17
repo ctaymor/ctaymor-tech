@@ -44,7 +44,7 @@
     (spit (str output-dir "contact/index.html") (layout/render-page (contact/page)))
 
     ;; Blog
-    (let [posts (blog/load-local-posts)]
+    (let [posts (blog/load-posts)]
       (spit (str output-dir "blog/index.html") (layout/render-page (blog-views/page posts)))
 
       ;; Individual posts
