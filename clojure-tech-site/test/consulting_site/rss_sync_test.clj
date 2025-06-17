@@ -21,24 +21,24 @@
 
 (deftest test-strip-html
   (testing "removes script tag hidden in html entities - prevent script injection"
-    (is (not (clojure.string/includes?
+    (is (not (str/includes?
              (rss/strip-html
               "&lt;script&gt;alert('bad')&lt;/script&gt;")
              "<script>")))))
 
 (deftest test-sanitize-html
   (testing "removes script tag hidden in html entities - prevent script injection"
-    (is (not (clojure.string/includes?
+    (is (not (str/includes?
              (rss/sanitize-html
               "&lt;script&gt;alert('bad')&lt;/script&gt;")
              "<script>"))))
   (testing "Removes non-allowed tags"
-        (is (not (clojure.string/includes?
+        (is (not (str/includes?
                  (rss/sanitize-html
                   "<iframe>;alert('bad')</iframe>")
                  "<iframe>"))))
     (testing "Removes non-allowed tags"
-          (is (clojure.string/includes?
+          (is (str/includes?
                    (rss/sanitize-html
                     "<a href=\"google.com\">Good Bolded Text</a>")
                    "<a href=\"google.com\">")))
