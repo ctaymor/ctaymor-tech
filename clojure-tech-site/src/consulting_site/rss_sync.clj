@@ -4,7 +4,8 @@
             [clojure.zip :as zip]
             [clojure.string :as str]
             [clojure.data.zip.xml :as zip-xml]
-            [hickory.utils :as utils]))
+            [clojure.data.json :as json]
+            [clojure.java.io :as io]))
 
 (def allowed-sources
   #{"https://write.as/ctaymor" "write.as/ctaymor"})
@@ -58,8 +59,7 @@
   [text]
   (-> text
       (decode-html-entities)
-      (clojure.string/replace #"<(?!/?(p|strong|em|a|ul|ol|li|br)\b)[^>]*>" "")
-      ))
+      (clojure.string/replace #"<(?!/?(p|strong|em|a|ul|ol|li|br)\b)[^>]*>" "")))
 
 (defn create-safe-excerpt
   "Creates a safe, short excerpt from HTML content, handling nil and empty values gracefully.
@@ -101,16 +101,18 @@
          :content (sanitize-html source-url)
          :author "Caroline Taymor"}))))
 
-(defn write-json-to-file
-  [content]
-  ;; TODO do stuff
-  )
+(defn write-json-to-file [posts]
+  (let [filename "build/posts.json"] ; or make this configurable
+    (io/make-parents filename)
+    (with-open [writer (io/writer filename)]
+      (json/write posts writer))
+    posts))
 
 (defn sync-rss-to-json [url]
   (trusted-source? url)
-  (let [content (fetch-rss-as-xml url)]
-    (extract-posts-from-xml content)
-    (write-json-to-file content)))
+  (-> (fetch-rss-as-xml url)
+      (extract-posts-from-xml)
+      (write-json-to-file)))
 
 
 
