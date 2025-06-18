@@ -68,7 +68,6 @@ jobs:
           fi
 
       - name: Upload rebuild marker (if needed)
-        working-directory: clojure-tech-site
         if: steps.check-rebuild.outputs.rebuild == 'true'
         uses: actions/upload-artifact@v4
         with:
