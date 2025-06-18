@@ -16,10 +16,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Change to Clojure project directory
-        run: |
-          ls
-          cd clojure-tech-site
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -37,7 +33,10 @@ jobs:
           chmod +x lein
           sudo mv lein /usr/local/bin/
       - name: Install dependencies
-        run: lein deps
+        working_directory: clojure-tech-site
+        run: |
+          ls
+          lein deps
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
@@ -45,16 +44,19 @@ jobs:
           service_account: 'blog-rss-sync@ctaymor-home.iam.gserviceaccount.com'
       - name: Sync RSS feeds
         id: rss-sync
+        working_directory: clojure-tech-site
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /home/runner/blog-rss-sync-key.json
         run: |
           echo "Starting RSS sync..."
+          ls
           lein run sync-rss -v 2>&1 || echo "Exit code: $?"
           echo "$output"
           echo "sync_output=$output" >> $GITHUB_OUTPUT
 
 # I think this check step is is redundant, but I will leave it for now.
       - name: Check for rebuild needed
+        working_directory: clojure-tech-site
         id: check-rebuild
         run: |
           if [ -f .rebuild_needed ]; then
@@ -66,6 +68,7 @@ jobs:
           fi
 
       - name: Upload rebuild marker (if needed)
+        working_directory: clojure-tech-site
         if: steps.check-rebuild.outputs.rebuild == 'true'
         uses: actions/upload-artifact@v4
         with:
