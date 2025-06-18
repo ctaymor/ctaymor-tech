@@ -8,7 +8,7 @@
             [clojure.java.io :as io]))
 
 (def allowed-sources
-  #{"https://write.as/ctaymor" "write.as/ctaymor"})
+  #{"https://write.as/ctaymor/feed" "write.as/ctaymor/feed"})
 
 (defn trusted-source? [url]
   (contains? allowed-sources url))
