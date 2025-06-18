@@ -6,3 +6,4 @@ dist/
 .lein*
 build/
 .nrepl*
+.rebuild-needed
