@@ -1,0 +1,93 @@
+name: RSS Feed Sync
+
+on:
+  schedule:
+  # Run every 4 hours
+    - cron: '0 23 * * *'
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  sync-rss:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Cache Leiningen dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/project.clj') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Install Leiningen
+        run: |
+          curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+          chmod +x lein
+          sudo mv lein /usr/local/bin/
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: 'projects/663757403089/locations/global/workloadIdentityPools/github-actions-pool/providers/github-provider'
+          service_account: 'blog-rss-sync@ctaymor-home.iam.gserviceaccount.com'
+      - name: Sync RSS feeds
+        id: rss-sync
+        permissions:
+          id-token: write
+          contents: read
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /home/runner/blog-rss-sync-key.json
+        run: |
+          echo "Starting RSS sync..."
+          output=$(lein run sync-rss 2>&1)
+          echo "$output"
+          echo "sync_output=$output" >> $GITHUB_OUTPUT
+
+# I think this check step is is redundant, but I will leave it for now.
+      - name: Check for rebuild needed
+        id: check-rebuild
+        run: |
+          if [ -f .rebuild_needed ]; then
+            echo "🔄 Rebuild needed - content has changed"
+            echo "rebuild=true" >> $GITHUB_OUTPUT
+          else
+            echo "✅ No rebuild needed - content unchanged"
+            echo "rebuild=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload rebuild marker (if needed)
+        if: steps.check-rebuild.outputs.rebuild == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: rebuild-needed
+          path: .rebuild_needed
+          retention-days: 1
+
+      - name: Summary
+        run: |
+          echo "## RSS Sync Results" >> $GITHUB_STEP_SUMMARY
+          echo "**Sync Output:** ${{ steps.rss-sync.outputs.sync_output }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Rebuild Needed:** ${{ steps.check-rebuild.outputs.rebuild }}" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check-rebuild.outputs.rebuild }}" == "true" ]; then
+            echo "🔄 Content has changed - site rebuild recommended" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ No changes detected - no rebuild needed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # TODO: Add step to trigger main site build workflow
+      # Options:
+      # 1. Repository dispatch to trigger another workflow
+      # 2. Call existing build workflow directly
+      # 3. Use workflow artifacts for coordination
+      - name: Trigger site rebuild (placeholder)
+        if: steps.check-rebuild.outputs.rebuild == 'true'
+        run: |
+          echo "Site rebuild would be triggered here"
+          echo "Implement based on your existing build workflow"
