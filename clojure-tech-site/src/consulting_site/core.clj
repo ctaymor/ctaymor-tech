@@ -27,6 +27,14 @@
             (io/make-parents dest-file)
             (io/copy file dest-file)))))))
 
+(defn cleanup-rebuild-marker
+  "Removes the .rebuild-needed file which indicates new blogposts to be built."
+  []
+  (let [marker-file (java.io.File. ".rebuild_needed")]
+    (when (.exists marker-file)
+    (.delete marker-file)
+    (println "Cleaned up rebuild marker"))))
+
 (defn generate-static-site []
   (let [output-dir "dist/"]
     (.mkdirs (java.io.File. output-dir))
@@ -54,7 +62,9 @@
           (spit (str post-dir "index.html") (layout/render-page (blog-views/post post))))))
 
     (copy-resources)
-    (println "Static site generated in" output-dir)))
+    (println "Static site generated in" output-dir)
+    (cleanup-rebuild-marker)
+    ))
 
 ;; Entry point
 (defn -main [& args]
