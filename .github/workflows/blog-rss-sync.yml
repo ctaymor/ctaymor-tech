@@ -17,7 +17,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Change to Clojure project directory
-        run: cd ctaymor-tech/clojure-tech-site
+        run: |
+          ls
+          cd clojure-tech-site
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
