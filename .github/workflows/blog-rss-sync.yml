@@ -45,7 +45,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: /home/runner/blog-rss-sync-key.json
         run: |
           echo "Starting RSS sync..."
-          output=$(lein run sync-rss 2>&1)
+          lein run sync-rss -v 2>&1 || echo "Exit code: $?"
           echo "$output"
           echo "sync_output=$output" >> $GITHUB_OUTPUT
 
