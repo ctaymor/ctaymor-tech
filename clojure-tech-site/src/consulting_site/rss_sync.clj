@@ -5,7 +5,9 @@
             [clojure.string :as str]
             [clojure.data.zip.xml :as zip-xml]
             [clojure.data.json :as json]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io]
+            [consulting-site.gcs-cache :as gcs]))
+
 
 (def allowed-sources
   #{"https://write.as/ctaymor/feed" "write.as/ctaymor/feed"})
@@ -113,7 +115,8 @@
   (trusted-source? url)
   (-> (fetch-rss-as-xml url)
       (extract-posts-from-xml)
-      (write-json-to-file)))
+      (write-json-to-file)
+      (gcs/upload-posts)))
 
 
 

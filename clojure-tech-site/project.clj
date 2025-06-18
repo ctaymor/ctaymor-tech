@@ -9,7 +9,9 @@
                  [org.jsoup/jsoup "1.16.1"]
                  [clj-http "3.12.3"]
                  [clj-rss "0.2.7"]
-                 [markdown-clj "1.11.4"]]
+                 [markdown-clj "1.11.4"]
+                 [com.google.cloud/google-cloud-storage "2.52.3"]]
+
 
   :main consulting-site.core
   :profiles {:dev {:dependencies [[ring/ring-devel "1.9.6"]]}}
