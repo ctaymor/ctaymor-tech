@@ -16,12 +16,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Change to Clojure project directory
+        run: cd ctaymor-tech/clojure-tech-site
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '11'
-
       - name: Cache Leiningen dependencies
         uses: actions/cache@v4
         with:
