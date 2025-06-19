@@ -66,3 +66,14 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Workflow Failed: ${context.workflow}`,
+              body: `Workflow "${context.workflow}" failed in run ${context.runNumber}\n\nRun URL: ${context.payload.repository.html_url}/actions/runs/${context.runId}`
+            });
