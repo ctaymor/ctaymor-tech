@@ -60,7 +60,7 @@ jobs:
           # Future: add actual notification here
       - name: Build site
         working-directory: clojure-tech-site
-        run: lein run build43
+        run: lein run build
       - name: Deploy to Netlify
         run: netlify deploy --prod --dir=dist
         env:
