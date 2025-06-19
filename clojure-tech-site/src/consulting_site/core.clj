@@ -3,6 +3,7 @@
   (:require [clojure.java.io :as io]
             [hiccup.page :refer [html5 include-css include-js]]
             [consulting-site.rss-sync :as rss]
+            [consulting-site.gcs-cache :as storage]
             [consulting-site.views.layout :as layout]
             [consulting-site.views.pages :as pages]
             [consulting-site.views.pages
@@ -71,4 +72,5 @@
   (case (first args)
     "build" (generate-static-site)
     "rss-sync" (rss/sync-rss-to-json "https://write.as/ctaymor/feed")
+    "get-blog-cache" (storage/download-latest-posts)
     (println "Commands: 'build' or 'sync-rss'")))

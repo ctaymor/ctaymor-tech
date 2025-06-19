@@ -20,12 +20,16 @@ jobs:
       - uses: actions/setup-node@v4 # Used only to install netlify cli with npm
         with:
           node-version: 18
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: 'projects/663757403089/locations/global/workloadIdentityPools/github-actions-pool/providers/github-provider'
+          service_account: 'blog-rss-sync@ctaymor-home.iam.gserviceaccount.com'
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '11'
-
       - name: Cache Leiningen dependencies
         uses: actions/cache@v4
         with:
@@ -39,7 +43,18 @@ jobs:
           sudo mv lein /usr/local/bin/
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
+      - name: Download latest posts
+        working-directory: clojure-tech-site
+        run: lein run get-blog-cache
+        continue-on-error: true
+        id: download
+      - name: Alert on download failure
+        if: steps.download.outcome == 'failure'
+        run: |
+          echo "TODO: Send alert - GCS download failed"
+          # Future: add actual notification here
       - name: Build site
+        working-directory: clojure-tech-site
         run: lein run build
       - name: Deploy to Netlify
         run: netlify deploy --prod --dir=dist

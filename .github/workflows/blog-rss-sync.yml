@@ -50,41 +50,7 @@ jobs:
         run: |
           echo "Starting RSS sync..."
           ls
-          lein run sync-rss -v 2>&1 || echo "Exit code: $?"
-          echo "$output"
-          echo "sync_output=$output" >> $GITHUB_OUTPUT
-
-# I think this check step is is redundant, but I will leave it for now.
-      - name: Check for rebuild needed
-        working-directory: clojure-tech-site
-        id: check-rebuild
-        run: |
-          if [ -f .rebuild_needed ]; then
-            echo "🔄 Rebuild needed - content has changed"
-            echo "rebuild=true" >> $GITHUB_OUTPUT
-          else
-            echo "✅ No rebuild needed - content unchanged"
-            echo "rebuild=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Upload rebuild marker (if needed)
-        if: steps.check-rebuild.outputs.rebuild == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: rebuild-needed
-          path: .rebuild_needed
-          retention-days: 1
-
-      - name: Summary
-        run: |
-          echo "## RSS Sync Results" >> $GITHUB_STEP_SUMMARY
-          echo "**Sync Output:** ${{ steps.rss-sync.outputs.sync_output }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Rebuild Needed:** ${{ steps.check-rebuild.outputs.rebuild }}" >> $GITHUB_STEP_SUMMARY
-          if [ "${{ steps.check-rebuild.outputs.rebuild }}" == "true" ]; then
-            echo "🔄 Content has changed - site rebuild recommended" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "✅ No changes detected - no rebuild needed" >> $GITHUB_STEP_SUMMARY
-          fi
+          lein run rss-sync
 
       # TODO: Add step to trigger main site build workflow
       # Options:
