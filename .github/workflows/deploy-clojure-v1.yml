@@ -9,6 +9,9 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch: # Manual trigger
+  workflow_run:
+    workflows: ["RSS Feed Sync"]
+    types: [completed]
 
 jobs:
   deploy:
