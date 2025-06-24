@@ -45,8 +45,6 @@ jobs:
       - name: Sync RSS feeds
         id: rss-sync
         working-directory: clojure-tech-site
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: /home/runner/blog-rss-sync-key.json
         run: |
           echo "Starting RSS sync..."
           ls
